@@ -5,6 +5,7 @@
   const IMG = "https://image.tmdb.org/t/p/";
   const STORE_SEEN = "ofpc.seen";
   const STORE_LANG = "ofpc.lang";
+  const STORE_THEME = "ofpc.theme";
   const CONTINENTS = ["europe", "africa", "middle_east", "asia", "americas", "oceania"];
   const LEVELS = ["A", "B", "C", "D"];
   const LEVEL_COLOR = { A: "var(--lvl-a)", B: "var(--lvl-b)", C: "var(--lvl-c)", D: "var(--lvl-d)", "": "var(--lvl-none)" };
@@ -41,6 +42,9 @@
       },
       reliability: (l) => `Fiabilité ${l}`,
       posterOf: (title) => `Affiche de ${title}`,
+      typoPoster: (title, year) => `Affiche typographique : ${title}${year ? ` (${year})` : ""}`,
+      posterBy: "Affiche :",
+      themeToLight: "Passer en mode clair", themeToDark: "Passer en mode sombre",
       legendSeen: "Déjà vu",
       metric: {
         admissions: (v) => `${v} entrées en salle`,
@@ -55,10 +59,10 @@
       links: "Liens", source: "Source du classement", alternatives: "Autres pistes",
       tmdbTop: "Le plus noté sur TMDB", fatw: "Choix de Films Around the World", video: "Phénomène vidéo",
       note: "Note", stub: (n) => `${n} pays`, short: "court-métrage", seen: "Je l’ai vu", seenOn: "Vu", min: "min", animation: "animation",
-      noPoster: "Pas d’affiche", noFilm: "Aucun film de fiction trouvé pour ce pays.",
+      noFilm: "Aucun film de fiction trouvé pour ce pays.",
       introTitle: "Une soirée par pays",
       intro: [
-        "Cliquez un pays sur la carte ou tirez-en un au hasard : plus il est clair, plus le choix est sûr.",
+        "Cliquez un pays sur la carte ou tirez-en un au hasard : plus un pays ressort sur la carte, plus le choix est sûr.",
         "Cochez « Je l’ai vu » après la soirée : le pays passe en rouge, et la liste reste dans ce navigateur.",
       ],
       daily: "Le film du jour", dailyOpen: "Voir sa fiche",
@@ -102,6 +106,9 @@
       },
       reliability: (l) => `Reliability ${l}`,
       posterOf: (title) => `Poster for ${title}`,
+      typoPoster: (title, year) => `Typographic poster: ${title}${year ? ` (${year})` : ""}`,
+      posterBy: "Poster:",
+      themeToLight: "Switch to light mode", themeToDark: "Switch to dark mode",
       legendSeen: "Watched",
       metric: {
         admissions: (v) => `${v} cinema admissions`,
@@ -116,10 +123,10 @@
       links: "Links", source: "Ranking source", alternatives: "Other leads",
       tmdbTop: "Most rated on TMDB", fatw: "Films Around the World pick", video: "Video phenomenon",
       note: "Note (in French)", stub: (n) => `${n} countries`, short: "short film", seen: "I’ve watched it", seenOn: "Seen", min: "min", animation: "animation",
-      noPoster: "No poster", noFilm: "No fiction film found for this country.",
+      noFilm: "No fiction film found for this country.",
       introTitle: "One night, one country",
       intro: [
-        "Click a country on the map or pick one at random: the lighter it is, the safer the pick.",
+        "Click a country on the map or pick one at random: the more a country stands out on the map, the safer the pick.",
         "Tick “I’ve watched it” after the screening: the country turns red, and the list stays in this browser.",
       ],
       daily: "Film of the day", dailyOpen: "Open its ticket",
@@ -206,6 +213,31 @@
   const filmTitle = (f) => (state.lang === "fr" ? f.title_fr : f.title_en) || f.title;
   const hasFilm = (f) => !!f.level;
   const levelBadge = (l) => `<b class="lv">${l}</b>`;
+
+  /* ---------- Affiches ---------- */
+  // TMDB d’abord, puis l’affiche hébergée avec le site, sinon rien (affiche typographique)
+  function posterSrc(f, size) {
+    if (f.poster) return `${IMG}${size}${f.poster}`;
+    return f.poster_url || "";
+  }
+  // Teinte tirée de l’iso : stable d’un chargement à l’autre, une fois sur cinq le rouge
+  function posterTone(iso) {
+    let h = 2;
+    for (const c of iso) h = (h * 37 + c.charCodeAt(0)) % 9973;
+    return h % 5;
+  }
+  // `label` : affiche annoncée comme image (ticket) ; sinon décorative, le texte du bouton suffit
+  function typoPoster(f, label) {
+    const title = f.title;
+    const longest = Math.max(...title.split(/\s+/).map((w) => [...w].length));
+    const len = [...title].length;
+    const size = Math.max(len <= 8 ? 1 : len <= 16 ? 2 : len <= 28 ? 3 : 4, longest > 10 ? 4 : longest > 7 ? 3 : longest > 5 ? 2 : 1);
+    const a11y = label ? `role="img" aria-label="${esc(t().typoPoster(title, f.year))}"` : `aria-hidden="true"`;
+    return `<span class="tpost" data-tone="${posterTone(f.iso2)}" data-size="${size}" ${a11y}><span class="tp-in">`
+      + `<span class="tp-title">${esc(title)}</span>`
+      + `<span class="tp-foot">${f.year ? `<span class="tp-year">${esc(f.year)}</span>` : ""}<span class="tp-cty">${esc(countryName(f.iso2))}</span></span>`
+      + `</span></span>`;
+  }
 
   /* ---------- Carte ---------- */
   function drawMap(world, nameToIso) {
@@ -294,7 +326,7 @@
   /* ---------- Ticket ---------- */
   // Film du jour : même film toute la journée (indice dérivé de la date), de niveau A avec affiche, non vu de préférence
   function dailyFilm() {
-    const pool = state.films.filter((f) => f.level === "A" && f.poster);
+    const pool = state.films.filter((f) => f.level === "A" && posterSrc(f, "w342"));
     if (!pool.length) return null;
     const d = new Date();
     const day = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000);
@@ -306,17 +338,17 @@
     return pool[start];
   }
 
-  function renderTicket({ animate = true } = {}) {
+  function renderTicket({ animate = true, draw = false } = {}) {
     const el = $("ticket");
     const L = t();
     const f = state.selected && state.byIso.get(state.selected);
-    const body = (cls) => `<div class="ticket-body${animate ? "" : " still"}${cls ? ` ${cls}` : ""}">`;
+    const body = (cls) => `<div class="ticket-body${animate ? "" : " still"}${draw ? " draw" : ""}${cls ? ` ${cls}` : ""}">`;
     if (!f) {
       if (!state.films.length) { el.innerHTML = ""; return; }
       const day = dailyFilm();
       const daily = day ? `<section class="daily"><h3>${esc(L.daily)}</h3>
           <div class="daily-film">
-            <img class="daily-poster" src="${IMG}w342${esc(day.poster)}" width="342" height="513" alt="${esc(L.posterOf(day.title))}">
+            <img class="daily-poster" src="${esc(posterSrc(day, "w342"))}" width="342" height="513" alt="${esc(L.posterOf(day.title))}">
             <div class="daily-txt">
               <p class="daily-cty">${esc(countryName(day.iso2))}</p>
               <p class="daily-title">${esc(filmTitle(day))}</p>
@@ -338,9 +370,11 @@
       return;
     }
     const local = filmTitle(f);
-    const poster = f.poster
-      ? `<img class="poster" src="${IMG}w342${esc(f.poster)}" width="116" height="174" alt="${esc(L.posterOf(f.title))}" fetchpriority="high">`
-      : `<div class="poster empty">${esc(L.noPoster)}</div>`;
+    const src = posterSrc(f, "w342");
+    const poster = src
+      ? `<img class="poster" src="${esc(src)}" width="116" height="174" alt="${esc(L.posterOf(f.title))}" fetchpriority="high">`
+      : typoPoster(f, true);
+    const credit = f.poster_credit ? `<p class="credit">${esc(L.posterBy)} <a href="${esc(f.poster_credit)}" target="_blank" rel="noopener">Films Around the World</a></p>` : "";
     const meta = [f.year, langName(f.lang), f.runtime ? `${f.runtime} ${L.min}` : "", f.animation ? L.animation : "", f.runtime && f.runtime < 60 ? L.short : ""].filter(Boolean).join(" · ");
     const metricFn = L.metric[f.metric];
     const figure = metricFn ? metricFn(fmtValue(f.value)) : "";
@@ -375,7 +409,7 @@
       </div>
       ${overview ? `<div class="block"><h4>${esc(L.story)}</h4><p class="overview">${esc(overview)}</p></div>` : ""}
       <div class="block"><h4>${esc(L.where)}</h4>${where}</div>
-      ${links ? `<div class="block"><h4>${esc(L.links)}</h4><p class="links">${links}</p></div>` : ""}
+      ${links ? `<div class="block"><h4>${esc(L.links)}</h4><p class="links">${links}</p>${credit}</div>` : credit ? `<div class="block">${credit}</div>` : ""}
       ${alts ? `<div class="block note"><h4>${esc(L.alternatives)}</h4>${alts}</div>` : ""}
       ${f.note_fr ? `<div class="block"><h4>${esc(L.note)}</h4><p class="note" lang="fr">${esc(f.note_fr)}</p></div>` : ""}
       <label class="seen-toggle${seen ? " on" : ""}"><input type="checkbox" id="seen-box"${seen ? " checked" : ""}> ${esc(L.seen)}</label>
@@ -416,7 +450,7 @@
       l.sort((a, b) => collator.compare(countryName(a.iso2), countryName(b.iso2)));
       return `<section class="continent"><div class="continent-head"><h3>${esc(L.continents[c])}</h3><span>${l.length}</span></div>
         <ul class="posters">${l.map((f) => `<li><button type="button" data-iso="${f.iso2}">
-          <span class="img">${f.poster ? `<img src="${IMG}w185${esc(f.poster)}" width="185" height="278" alt="" loading="lazy">` : `<span class="noimg">${esc(f.title)}</span>`}
+          <span class="img">${posterSrc(f, "w185") ? `<img src="${esc(posterSrc(f, "w185"))}" width="185" height="278" alt="" loading="lazy">` : typoPoster(f, false)}
           <span class="lvl lvl-${f.level}" style="background:${LEVEL_COLOR[f.level]}" aria-hidden="true">${f.level}</span><span class="visually-hidden">${esc(L.reliability(f.level))}. </span>
           ${state.seen.has(f.iso2) ? `<span class="seen-mark">${esc(L.seenOn)}</span>` : ""}</span>
           <span class="cty">${esc(countryName(f.iso2))}</span><span class="ttl">${esc(filmTitle(f))}${f.year ? `, ${esc(f.year)}` : ""}</span>
@@ -432,11 +466,11 @@
     $("announce").textContent = `${countryName(iso)} : ${hasFilm(f) ? filmTitle(f) : t().noFilm}`;
   }
 
-  function select(iso, { from } = {}) {
+  function select(iso, { from, draw } = {}) {
     if (!state.byIso.has(iso)) return;
     state.selected = iso;
     history.replaceState(null, "", `#${iso}`);
-    renderTicket();
+    renderTicket({ draw });
     paintMap();
     announce(iso);
     const ticket = $("ticket");
@@ -488,18 +522,65 @@
     const target = pick();
     // onglet masqué : les minuteries sont ralenties à 1 s, l’animation durerait 10 s
     if (!map || document.hidden || reduced()) return select(target);
-    // une dizaine de pays s’allument, de plus en plus lentement, puis le tirage se pose
+    // l’amorce compte 3, 2, 1 pendant que des pays s’allument, de plus en plus lentement, puis le ticket sort
     rolling = true;
     const btn = $("random");
     btn.setAttribute("aria-disabled", "true"); // pas `disabled` : le bouton garde le focus
-    const delays = [60, 60, 70, 80, 95, 115, 140, 175, 220, 280];
+    const delays = [60, 60, 70, 85, 100, 125, 150, 190, 230, 280]; // 1350 ms = 3 battements
     const flash = (iso) => map.g.selectAll(".country").classed("flash", (d) => (d.iso ?? d.iso2) === iso);
-    let i = 0;
+    const stopLeader = startLeader(LEADER_BEAT);
+    let i = 0, timer;
+    const finish = () => {
+      if (!rolling) return;
+      clearTimeout(timer); abortDraw = null;
+      flash(null); stopLeader(); rolling = false; btn.removeAttribute("aria-disabled");
+      select(target, { draw: true });
+    };
+    abortDraw = finish; // onglet masqué en cours de route : on conclut tout de suite
     const step = () => {
-      if (i < delays.length) { flash(pick()); setTimeout(step, delays[i++]); return; }
-      flash(null); rolling = false; btn.removeAttribute("aria-disabled"); select(target);
+      if (i < delays.length) { flash(pick()); timer = setTimeout(step, delays[i++]); return; }
+      finish();
     };
     step();
+  }
+
+  /* Amorce de projection : un balayage par chiffre, 3 puis 2 puis 1 */
+  const LEADER_BEAT = 450;
+  let abortDraw = null;
+  function startLeader(beat) {
+    const el = $("leader"), num = $("leader-num");
+    let raf = 0, live = true;
+    el.classList.remove("out");
+    el.hidden = false;
+    void el.offsetWidth;
+    el.classList.add("on");
+    const t0 = performance.now();
+    const frame = (now) => {
+      if (!live) return;
+      const e = Math.max(0, now - t0);
+      const k = Math.min(2, Math.floor(e / beat));
+      const p = Math.min(1, (e - k * beat) / beat);
+      num.textContent = String(3 - k);
+      num.style.transform = `scale(${1 + 0.16 * (1 - Math.min(1, p * 3)) ** 2})`;
+      el.style.setProperty("--sweep", `${p * 360}deg`);
+      raf = requestAnimationFrame(frame);
+    };
+    frame(t0);
+    return () => {
+      live = false; cancelAnimationFrame(raf);
+      el.classList.remove("on"); el.classList.add("out");
+      setTimeout(() => { if (el.classList.contains("out")) el.hidden = true; }, 220);
+    };
+  }
+
+  /* ---------- Thème ---------- */
+  const currentTheme = () => (document.documentElement.dataset.theme === "light" ? "light" : "dark");
+  function applyTheme(theme, { save = false } = {}) {
+    document.documentElement.dataset.theme = theme;
+    if (save) store.set(STORE_THEME, theme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", getComputedStyle(document.documentElement).getPropertyValue("--bg").trim());
+    const L = t();
+    $("theme").setAttribute("aria-label", theme === "dark" ? L.themeToLight : L.themeToDark);
   }
 
   function renderProgress() {
@@ -514,6 +595,7 @@
     document.querySelectorAll("[data-i18n-placeholder]").forEach((n) => { n.placeholder = L[n.dataset.i18nPlaceholder]; });
     document.querySelectorAll("[data-i18n-label]").forEach((n) => { n.setAttribute("aria-label", L[n.dataset.i18nLabel]); });
     document.querySelectorAll(".lang-switch button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang)));
+    $("theme").setAttribute("aria-label", currentTheme() === "dark" ? L.themeToLight : L.themeToDark);
     $("zoom-in").setAttribute("aria-label", L.zoomIn);
     $("zoom-out").setAttribute("aria-label", L.zoomOut);
     $("legend").innerHTML = [...LEVELS, ""].map((l) =>
@@ -574,6 +656,13 @@
 
   // Langue et textes statiques tout de suite, avant le chargement des données
   renderStatic();
+  $("theme").addEventListener("click", () => applyTheme(currentTheme() === "dark" ? "light" : "dark", { save: true }));
+  // sans choix mémorisé, le site suit le réglage du système
+  window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
+    const s = store.get(STORE_THEME);
+    if (s !== "light" && s !== "dark") applyTheme(e.matches ? "light" : "dark");
+  });
+  document.addEventListener("visibilitychange", () => { if (document.hidden && abortDraw) abortDraw(); });
 
   Promise.all([fetch("data/films.json").then((r) => r.json()), fetch("data/world-50m.json").then((r) => r.json())])
     .then(([data, world]) => {

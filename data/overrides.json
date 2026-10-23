@@ -49,5 +49,15 @@
   "GN": {"niveau": "C", "fiabilite": "faible (choix éditorial, pas d'audience)",
          "titre_original": "L'Absence", "titre_en": "L'Absence", "annee": "2009", "langue": "fr",
          "critere": "choix « native » de Films Around the World", "source": "https://filmsaroundthe.world/",
-         "note": "Film de Mama Keïta. Pas de fiche TMDB fiable trouvée.", "no_tmdb": true}
+         "note": "Film de Mama Keïta. Pas de fiche TMDB fiable trouvée.", "no_tmdb": true},
+  "TD": {"tmdb_id": 276186,
+         "note": "Fiche TMDB retrouvée à la main (TMDB date le film de sa sortie française, 2003)."},
+  "YE": {"tmdb_id": 341182,
+         "note": "Fiche TMDB retrouvée à la main (titre anglais I Am Nojoom)."},
+  "GD": {"poster_url": "posters/GD.webp",
+         "poster_credit": "https://filmsaroundthe.world/country/grenada/films/blinded-f99e1c495c64f795e/",
+         "note": "Affiche absente de TMDB, reprise de Films Around the World."},
+  "MH": {"poster_url": "posters/MH.webp",
+         "poster_credit": "https://filmsaroundthe.world/country/marshall-islands/films/the-sound-of-crickets-at-night-f4460f9847c95abe6/",
+         "note": "Affiche absente de TMDB, reprise de Films Around the World."}
 }

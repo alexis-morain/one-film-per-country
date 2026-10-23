@@ -171,9 +171,12 @@ def main():
         if iso in overrides:
             o = dict(overrides[iso])
             no_tmdb = o.pop("no_tmdb", False)
+            forced = o.pop("tmdb_id", None)  # fiche TMDB retrouvée à la main
             o["note"] = f"{o.get('note', '')} {row['note']}".strip()
             row.update(o)
-            if no_tmdb or "titre_original" in o:
+            if forced:
+                tmdb_id = forced
+            elif no_tmdb or "titre_original" in o:
                 m = None if no_tmdb else tmdb_find(o.get("titre_original"), o.get("annee")) or \
                     tmdb_find(o.get("titre_en"), o.get("annee"))
                 tmdb_id = m["id"] if m else None

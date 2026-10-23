@@ -45,6 +45,11 @@ def video_text(v):
     return f"{d['title']}{views}{url}"
 
 
+def note_fr(note):
+    """Les agents de recherche ont parfois écrit la note en anglais : la plus fréquente est traduite ici."""
+    return (note or "").replace("No sourced box office data.", "Aucun box-office sourcé.")
+
+
 films = []
 for r in rows:
     kind, value = metric(r.get("critere"))
@@ -59,11 +64,12 @@ for r in rows:
         "metric": kind, "value": value,
         "source": r.get("source") or "", "runner_up": r.get("second") or "",
         "tmdb_id": r.get("tmdb_id"), "imdb_id": r.get("imdb_id") or "",
-        "poster": r.get("poster"), "backdrop": r.get("backdrop"),
+        "poster": r.get("poster"), "poster_url": r.get("poster_url") or "",
+        "poster_credit": r.get("poster_credit") or "", "backdrop": r.get("backdrop"),
         "overview_fr": r.get("overview_fr") or "", "overview_en": r.get("overview_en") or "",
         "providers_fr": r.get("providers_fr") or {}, "justwatch_fr": r.get("justwatch_fr") or "",
         "tmdb_top": r.get("tmdb_top") or "", "fatw": r.get("fatw") or "",
-        "video": video_text(r.get("video")), "note_fr": r.get("note") or "",
+        "video": video_text(r.get("video")), "note_fr": note_fr(r.get("note")),
     })
 
 out = {"updated": date.today().isoformat(), "name_to_iso": NAME_TO_ISO, "films": films}

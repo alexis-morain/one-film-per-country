@@ -61,7 +61,7 @@ Level A box office research lives in `data/raw/tierA_*.json` (first pass) and `d
 
 - Code: [MIT](LICENSE).
 - The curated list (which film for which country, levels, notes): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-- Film data and posters come from [TMDB](https://www.themoviedb.org/). This product uses the TMDB API but is not endorsed or certified by TMDB. Posters belong to their rights holders.
+- Film data and posters come from [TMDB](https://www.themoviedb.org/). This product uses the TMDB API but is not endorsed or certified by TMDB. Two posters missing from TMDB (Grenada, Marshall Islands) come from [Films Around the World](https://filmsaroundthe.world/) and are credited on their ticket. Films with no poster anywhere get a typographic one drawn by the site. Posters belong to their rights holders.
 - Streaming availability: JustWatch, via TMDB.
 - Editorial picks for level C: [Films Around the World](https://filmsaroundthe.world/).
 - Box office figures: Wikipedia lists, national film institutes and press, linked one by one in the data.

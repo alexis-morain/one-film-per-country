@@ -14,6 +14,19 @@
   --lvl-c: #9a8670;
   --lvl-d: #6a5a49;
   --lvl-none: #2b231d;
+  --lvl-a-ink: #15110e;
+  --lvl-b-ink: #15110e;
+  --lvl-c-ink: #15110e;
+  --lvl-d-ink: #f6ecdf;
+  --text-strong: #fffaf2;
+  --flash: var(--text);
+  /* Affiche typographique : même tirage dans les deux thèmes, comme un tirage papier */
+  --pp-0: #4a2c20;
+  --pp-1: #5a3b22;
+  --pp-2: #40362a;
+  --pp-3: #6b4630;
+  --pp-4: var(--accent);
+  --pp-ink: #f6ecdf;
   --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
   --font-body: "Literata", Georgia, serif;
   --fs-display: clamp(2.6rem, 6vw, 4.6rem);
@@ -26,10 +39,33 @@
   --ease: cubic-bezier(.2, .7, .2, 1);
   --perfo: 9px;
   --tap: 44px;
+  color-scheme: dark;
+}
+/* Programme de salle : papier gris chaud, encre brune, même rouge velours. L’échelle des niveaux s’inverse (le plus sûr est le plus encré). */
+:root[data-theme="light"] {
+  --bg: #e9e4dc;
+  --surface: #f7f4ee;
+  --surface-2: #ddd6cb;
+  --line: #cfc6ba;
+  --text: #1d1712;
+  --muted: #52463c;
+  --accent-hover: #96182a;
+  --lvl-a: #2b2219;
+  --lvl-b: #54463a;
+  --lvl-c: #7a6958;
+  --lvl-d: #a39380;
+  --lvl-none: #dcd4c8;
+  --lvl-a-ink: #f6ecdf;
+  --lvl-b-ink: #f6ecdf;
+  --lvl-c-ink: #f6ecdf;
+  --lvl-d-ink: #1d1712;
+  --text-strong: #0d0a07;
+  --flash: var(--accent);
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
-html { background: var(--bg); color: var(--text); color-scheme: dark; scrollbar-color: var(--line) var(--bg); caret-color: var(--accent); }
+html { background: var(--bg); color: var(--text); scrollbar-color: var(--line) var(--bg); caret-color: var(--accent); }
 ::selection { background: var(--accent); color: var(--accent-ink); }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -41,7 +77,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: var(--text); text-decoration-color: var(--muted); text-underline-offset: .18em; }
-a:hover { color: #fff; text-decoration-color: var(--accent-hover); }
+a:hover { color: var(--text-strong); text-decoration-color: var(--accent-hover); }
 button { font: inherit; color: inherit; touch-action: manipulation; }
 :focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
@@ -79,6 +115,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height
 .lang-switch { display: flex; border: 1px solid var(--line); }
 .lang-switch button { background: none; border: 0; padding: .45rem .7rem; cursor: pointer; color: var(--muted); font-family: var(--font-display); font-weight: 800; }
 .lang-switch button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+.switches { display: flex; align-items: stretch; gap: .5rem; }
+.theme-btn { display: grid; place-items: center; width: 2.4rem; background: none; border: 1px solid var(--line); cursor: pointer; color: var(--text); transition: background-color .15s var(--ease); }
+.theme-btn:hover { background: var(--surface-2); }
+.theme-btn svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: square; stroke-linejoin: miter; }
+/* l’icône montre le thème qui sera activé */
+:root[data-theme="dark"] .i-moon, :root[data-theme="light"] .i-sun { display: none; }
 
 /* Grille principale : écran à gauche, ticket à droite (hauteur de la rangée = hauteur de la carte) */
 .top {
@@ -110,7 +152,29 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height
 .map-zoom svg { width: 14px; height: 14px; display: block; margin: auto; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: square; }
 .map-status { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--muted); font-style: italic; pointer-events: none; }
 .map-status[hidden] { display: none; }
-.country.flash { fill: var(--text); }
+.country.flash { fill: var(--flash); }
+
+/* Amorce de projection (Academy leader) posée sur la carte pendant le tirage */
+.leader {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; display: grid; place-items: center; overflow: hidden;
+  background: color-mix(in srgb, var(--bg) 52%, transparent);
+  opacity: 0; transition: opacity .12s var(--ease);
+  --leader-line: color-mix(in srgb, var(--text) 38%, transparent);
+}
+.leader[hidden] { display: none; }
+.leader.on { opacity: 1; }
+.leader.out { opacity: 0; transition-duration: .2s; }
+.leader::before, .leader::after { content: ""; position: absolute; background: var(--leader-line); }
+.leader::before { left: 0; right: 0; top: 50%; height: 1px; }
+.leader::after { top: 0; bottom: 0; left: 50%; width: 1px; }
+.leader-disc {
+  position: relative; height: 86%; aspect-ratio: 1; border-radius: 50%; container-type: inline-size;
+  border: 2px solid var(--text); display: grid; place-items: center;
+  background: conic-gradient(from 0deg, color-mix(in srgb, var(--text) 20%, transparent) var(--sweep, 0deg), transparent 0);
+}
+.leader-disc::before { content: ""; position: absolute; inset: 9%; border-radius: 50%; border: 1px solid var(--leader-line); }
+.leader-needle { position: absolute; left: calc(50% - 1px); top: 0; width: 2px; height: 50%; background: var(--accent); transform-origin: 50% 100%; transform: rotate(var(--sweep, 0deg)); }
+.leader-num { position: relative; font: 800 52cqi/1 var(--font-display); color: var(--text); font-variant-numeric: lining-nums; will-change: transform; }
 
 .tooltip {
   position: absolute; pointer-events: none; z-index: 3; max-width: 260px;
@@ -138,7 +202,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height
 .ticket h2 { font-size: var(--fs-h3); }
 .ticket .film { display: grid; grid-template-columns: 116px 1fr; gap: 1rem; margin: 1rem 0 1.1rem; }
 .ticket .poster { width: 116px; height: auto; aspect-ratio: 2 / 3; background: var(--surface-2); object-fit: cover; display: block; }
-.ticket .poster.empty { display: grid; place-items: center; color: var(--muted); font-size: var(--fs-small); text-align: center; padding: .5rem; }
 .ticket h3 { font-size: var(--fs-lead); font-weight: 800; }
 .ticket .alt-title { margin: .3rem 0 0; color: var(--muted); font-style: italic; }
 .ticket .meta { margin: .5rem 0 0; font-size: var(--fs-small); color: var(--muted); }
@@ -153,6 +216,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height
 .providers { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .35rem; }
 .providers span { border: 1px solid var(--line); padding: .15rem .45rem; font-size: var(--fs-small); }
 .links { display: flex; flex-wrap: wrap; gap: .4rem .9rem; font-size: var(--fs-small); }
+.ticket .credit { margin-top: .5rem; font-size: var(--fs-small); color: var(--muted); }
 .seen-toggle { display: flex; align-items: center; gap: .6rem; margin-top: 1.4rem; padding: .7rem .8rem; min-height: var(--tap); border: 1px solid var(--line); cursor: pointer; }
 .seen-toggle input { accent-color: var(--accent); width: 1.1rem; height: 1.1rem; }
 .seen-toggle.on { border-color: var(--accent); }
@@ -160,6 +224,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height
 .ticket-body { animation: ticket-in .45s var(--ease) both; }
 .ticket-body.still { animation: none; }
 @keyframes ticket-in { from { opacity: 0; transform: translateY(-10px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); } }
+/* Tirage : le ticket sort de la machine (révélé de haut en bas), puis le talon est tamponné */
+.ticket-body.draw { animation: ticket-out .5s cubic-bezier(.25, .6, .2, 1) both; }
+.ticket-body.draw .ticket-stub span:last-child { transform-origin: 100% 50%; animation: stamp .15s var(--ease) .5s both; }
+@keyframes ticket-out { from { transform: translateY(-3.5rem); clip-path: inset(0 0 100% 0); } to { transform: none; clip-path: inset(0 0 0 0); } }
+@keyframes stamp { from { opacity: 0; transform: scale(1.35); } to { opacity: 1; transform: none; } }
 .ticket-intro p { max-width: 42ch; text-wrap: pretty; }
 .ticket-intro p + p { margin-top: .8rem; }
 
@@ -201,11 +270,27 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height
 .posters button { background: none; border: 0; padding: 0; text-align: left; cursor: pointer; width: 100%; }
 .posters .img { display: block; position: relative; aspect-ratio: 2 / 3; background: var(--surface-2); overflow: hidden; }
 .posters img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .2s var(--ease); }
-.posters button:hover img { opacity: .82; }
-.posters .noimg { position: absolute; inset: 0; display: grid; place-items: center; padding: .6rem; text-align: center; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-body); color: var(--muted); }
-.posters .lvl { position: absolute; left: 0; top: 0; font: 800 var(--fs-small)/1 var(--font-display); padding: .3rem .45rem; color: var(--bg); }
-.posters .lvl.lvl-C { color: var(--bg); }
-.posters .lvl.lvl-D { color: var(--accent-ink); }
+.posters button:hover img, .posters button:hover .tpost { opacity: .82; }
+.posters .tpost { transition: opacity .2s var(--ease); }
+.posters .lvl { position: absolute; left: 0; top: 0; font: 800 var(--fs-small)/1 var(--font-display); padding: .3rem .45rem; }
+.posters .lvl-A { color: var(--lvl-a-ink); } .posters .lvl-B { color: var(--lvl-b-ink); }
+.posters .lvl-C { color: var(--lvl-c-ink); } .posters .lvl-D { color: var(--lvl-d-ink); }
+.posters .tp-foot { padding-right: 24cqi; }
+
+/* Affiche typographique : pour les films sans aucune image */
+.tpost { container-type: inline-size; position: relative; display: block; width: 100%; aspect-ratio: 2 / 3; overflow: hidden; background: var(--pp-0); color: var(--pp-ink); }
+.tpost[data-tone="1"] { background: var(--pp-1); } .tpost[data-tone="2"] { background: var(--pp-2); }
+.tpost[data-tone="3"] { background: var(--pp-3); } .tpost[data-tone="4"] { background: var(--pp-4); }
+.tp-in { position: absolute; inset: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 6cqi; padding: 10cqi; }
+.tp-in::before { content: ""; position: absolute; inset: 4.5cqi; border: 1px solid color-mix(in srgb, var(--pp-ink) 40%, transparent); pointer-events: none; }
+.tp-title {
+  align-self: end; min-width: 0; font: 800 max(13px, var(--tp-size, 17cqi))/.92 var(--font-display); letter-spacing: .01em; text-transform: uppercase;
+  text-wrap: balance; overflow-wrap: anywhere; hyphens: manual;
+}
+.tpost[data-size="1"] { --tp-size: 32cqi; } .tpost[data-size="2"] { --tp-size: 23cqi; }
+.tpost[data-size="3"] { --tp-size: min(17cqi, 24px); } .tpost[data-size="4"] { --tp-size: min(12.5cqi, 24px); }
+.tp-foot { display: flex; flex-direction: column; gap: .1em; padding-top: 3.5cqi; border-top: 1px solid color-mix(in srgb, var(--pp-ink) 40%, transparent); font-size: max(13px, 7.5cqi); line-height: 1.15; overflow-wrap: anywhere; }
+.tp-year { font-family: var(--font-display); font-weight: 800; font-variant-numeric: lining-nums; font-size: 1.25em; }
 .posters .seen-mark { position: absolute; right: 0; bottom: 0; background: var(--accent); color: var(--accent-ink); font: 800 var(--fs-small)/1 var(--font-display); padding: .3rem .45rem; }
 .posters .cty { display: block; margin-top: .45rem; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-body); line-height: 1.1; }
 .posters .ttl { display: block; font-size: var(--fs-small); color: var(--muted); line-height: 1.3; }
@@ -235,7 +320,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height
 @media (max-width: 600px) {
   .masthead-tools { display: grid; grid-template-columns: 1fr auto; width: 100%; gap: .75rem; }
   .masthead-tools .progress { grid-row: 1; grid-column: 1; }
-  .masthead-tools .lang-switch { grid-row: 1; grid-column: 2; }
+  .masthead-tools .switches { grid-row: 1; grid-column: 2; }
   .masthead-tools .btn-primary { grid-row: 2; grid-column: 1 / -1; }
   .daily-film { grid-template-columns: 1fr; }
   .daily-poster { max-width: 300px; }
@@ -244,6 +329,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height
 @media (max-width: 900px), (pointer: coarse) {
   .btn, .lang-switch button, .chips button, .search input { min-height: var(--tap); }
   .lang-switch button { min-width: var(--tap); }
+  .theme-btn { width: var(--tap); min-height: var(--tap); }
   .map-zoom button { min-width: var(--tap); height: var(--tap); }
   .chips button { min-width: var(--tap); justify-content: center; }
   .check { min-height: var(--tap); }
