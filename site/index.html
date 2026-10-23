@@ -3,22 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#15110e">
   <title>Un film par pays</title>
-  <meta name="description" content="Le film national le plus vu dans chaque pays, dans sa langue d'origine. Une carte, 199 pays, une soirée par pays.">
+  <meta name="description" content="Le film national le plus vu dans chaque pays, dans sa langue d’origine. Une carte, 199 pays, une soirée par pays.">
   <meta property="og:title" content="Un film par pays / One film per country">
-  <meta property="og:description" content="Le film national le plus vu dans chaque pays, dans sa langue d'origine.">
+  <meta property="og:description" content="Le film national le plus vu dans chaque pays, dans sa langue d’origine.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://image.tmdb.org">
   <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
   <header class="masthead">
     <div class="masthead-title">
       <h1 data-i18n="title">Un film par pays</h1>
-      <p class="lede" data-i18n="lede">Le film national le plus vu dans chaque pays, dans sa langue d'origine.</p>
+      <p class="lede" data-i18n="lede">Le film national le plus vu dans chaque pays, dans sa langue d’origine.</p>
     </div>
     <div class="masthead-tools">
-      <p class="progress" id="progress"></p>
+      <p class="progress" id="progress" aria-live="polite"></p>
       <button class="btn btn-primary" id="random" type="button" data-i18n="random">Tirer un pays au hasard</button>
       <div class="lang-switch" role="group" aria-label="Langue / Language">
         <button type="button" data-lang="fr" aria-pressed="true">FR</button>
@@ -27,9 +30,9 @@
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
     <div class="top">
-    <section class="stage" aria-label="Carte">
+    <section class="stage" aria-label="Carte" data-i18n-label="mapSection">
       <div class="screen">
         <svg id="map" role="img" aria-labelledby="map-label"><title id="map-label" data-i18n="mapLabel">Carte du monde, un film par pays</title></svg>
         <div class="map-zoom">
@@ -38,31 +41,32 @@
           <button type="button" id="zoom-reset" data-i18n="reset">Recentrer</button>
         </div>
         <div class="tooltip" id="tooltip" hidden></div>
-        <p class="map-status" id="map-status" data-i18n="loading">Chargement de la carte…</p>
+        <p class="map-status" id="map-status" role="status" data-i18n="loading">Chargement de la carte…</p>
       </div>
       <ul class="legend" id="legend"></ul>
     </section>
 
-    <aside class="ticket" id="ticket" aria-live="polite"></aside>
+    <aside class="ticket" id="ticket" tabindex="-1" aria-label="Fiche du film" data-i18n-label="asideLabel"></aside>
     </div>
+    <p class="visually-hidden" id="announce" role="status"></p>
 
     <section class="catalogue" id="catalogue">
       <div class="catalogue-head">
         <h2 data-i18n="catalogueTitle">Les films, pays par pays</h2>
-        <form class="filters" id="filters" onsubmit="return false">
+        <form class="filters" id="filters" role="search">
           <label class="search">
             <span class="visually-hidden" data-i18n="search">Chercher</span>
-            <input type="search" id="q" data-i18n-placeholder="searchPh" placeholder="Pays ou film">
+            <input type="search" id="q" name="q" autocomplete="off" spellcheck="false" data-i18n-placeholder="searchPh" placeholder="Pays ou film">
           </label>
           <fieldset class="chips" id="level-filter">
             <legend class="visually-hidden" data-i18n="levelLegend">Fiabilité</legend>
           </fieldset>
-          <label class="check"><input type="checkbox" id="f-fr"> <span data-i18n="fAvail">Visible en France</span></label>
-          <label class="check"><input type="checkbox" id="f-anim"> <span data-i18n="fAnim">Animation</span></label>
-          <label class="check"><input type="checkbox" id="f-unseen"> <span data-i18n="fUnseen">Pas encore vus</span></label>
+          <label class="check"><input type="checkbox" id="f-fr" name="fr"> <span data-i18n="fAvail">Visible en France</span></label>
+          <label class="check"><input type="checkbox" id="f-anim" name="anim"> <span data-i18n="fAnim">Animation</span></label>
+          <label class="check"><input type="checkbox" id="f-unseen" name="unseen"> <span data-i18n="fUnseen">Pas encore vus</span></label>
         </form>
       </div>
-      <p class="count" id="count"></p>
+      <p class="count" id="count" aria-live="polite"></p>
       <div id="grid"></div>
     </section>
 
@@ -74,11 +78,11 @@
 
   <footer class="colophon">
     <p id="credits"></p>
-    <p class="tmdb" data-i18n="tmdb">Ce site utilise l'API TMDB sans être approuvé ni certifié par TMDB.</p>
+    <p class="tmdb" data-i18n="tmdb">Ce site utilise l’API TMDB sans être approuvé ni certifié par TMDB.</p>
   </footer>
 
-  <script src="vendor/d3.min.js"></script>
-  <script src="vendor/topojson-client.min.js"></script>
-  <script src="app.js"></script>
+  <script defer src="vendor/d3.min.js"></script>
+  <script defer src="vendor/topojson-client.min.js"></script>
+  <script defer src="app.js"></script>
 </body>
 </html>

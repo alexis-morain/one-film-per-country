@@ -11,3 +11,4 @@ plans/
 data/raw/*_log.txt
 .impeccable/
 .playwright-mcp/
+.taste-skill/

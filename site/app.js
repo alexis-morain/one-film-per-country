@@ -10,21 +10,25 @@
   const LEVEL_COLOR = { A: "var(--lvl-a)", B: "var(--lvl-b)", C: "var(--lvl-c)", D: "var(--lvl-d)", "": "var(--lvl-none)" };
   // codes TMDB qui ne sont pas des codes de langue standard
   const LANG_FIX = { cn: "yue", zxx: "zxx", sh: "sr", mo: "ro", "fr/en": "fr" };
+  // un pays dont l’aire sphérique (stéradians) est sous ce seuil reçoit un point, quelle que soit la taille de l’écran
+  const MICRO_AREA = 3e-4;
 
   const T = {
     fr: {
       title: "Un film par pays",
-      lede: "Le film national le plus vu dans chaque pays, dans sa langue d'origine.",
+      lede: "Le film national le plus vu dans chaque pays, dans sa langue d’origine.",
+      skip: "Aller au contenu",
       random: "Tirer un pays au hasard",
       reset: "Recentrer", zoomIn: "Zoom avant", zoomOut: "Zoom arrière",
       loading: "Chargement de la carte…",
-      loadError: "La carte n'a pas pu se charger. Rechargez la page.",
+      loadError: "La carte n’a pas pu se charger. Rechargez la page.",
       mapLabel: "Carte du monde, un film par pays",
+      mapSection: "Carte", asideLabel: "Fiche du film",
       catalogueTitle: "Les films, pays par pays",
       search: "Chercher", searchPh: "Pays ou film", levelLegend: "Fiabilité",
       fAvail: "Visible en France", fAnim: "Animation", fUnseen: "Pas encore vus",
       methodTitle: "Comment les films ont été choisis",
-      tmdb: "Ce site utilise l'API TMDB sans être approuvé ni certifié par TMDB.",
+      tmdb: "Ce site utilise l’API TMDB sans être approuvé ni certifié par TMDB.",
       progress: (n, t) => `<strong>${n}</strong> pays vus sur ${t}`,
       count: (n) => n === 0 ? "Aucun film ne correspond à ces filtres." : `${n} film${n > 1 ? "s" : ""}`,
       continents: { europe: "Europe", africa: "Afrique", middle_east: "Moyen-Orient", asia: "Asie", americas: "Amériques", oceania: "Océanie", other: "Ailleurs" },
@@ -35,48 +39,52 @@
         D: "Dernier recours : très peu de votes",
         "": "Aucun film trouvé",
       },
+      reliability: (l) => `Fiabilité ${l}`,
+      posterOf: (title) => `Affiche de ${title}`,
       legendSeen: "Déjà vu",
       metric: {
         admissions: (v) => `${v} entrées en salle`,
         gross: (v) => `${v} de recettes nationales`,
         votes: (v) => `${v} votes sur TMDB`,
-        editorial: () => "Choix « native » de Films Around the World",
+        editorial: () => "Choix « native » de Films Around the World",
         press: (v) => v,
       },
-      why: "Pourquoi ce film", runnerUp: "Juste derrière", story: "L'histoire", where: "Où le voir en France",
+      why: "Pourquoi ce film", runnerUp: "Juste derrière", story: "L’histoire", where: "Où le voir en France",
       nowhere: "Pas de diffusion connue en France. Cherchez du côté des festivals, des cinémathèques ou de la plateforme du pays.",
       kinds: { flatrate: "abonnement", free: "gratuit", ads: "gratuit avec pub", rent: "location", buy: "achat" },
       links: "Liens", source: "Source du classement", alternatives: "Autres pistes",
       tmdbTop: "Le plus noté sur TMDB", fatw: "Choix de Films Around the World", video: "Phénomène vidéo",
-      note: "Note", stub: (n) => `${n} pays`, short: "court-métrage", seen: "Je l'ai vu", seenOn: "Vu", min: "min", animation: "animation",
-      noPoster: "Pas d'affiche", noFilm: "Aucun film de fiction trouvé pour ce pays.",
+      note: "Note", stub: (n) => `${n} pays`, short: "court-métrage", seen: "Je l’ai vu", seenOn: "Vu", min: "min", animation: "animation",
+      noPoster: "Pas d’affiche", noFilm: "Aucun film de fiction trouvé pour ce pays.",
       introTitle: "Une soirée par pays",
       intro: [
-        "Cliquez un pays sur la carte, ou tirez-en un au hasard, pour voir son film.",
-        "Plus un pays est clair, plus le choix est sûr : les plus clairs ont un box-office sourcé, les plus sombres reposent sur peu de données.",
-        "Cochez « Je l'ai vu » après la soirée : le pays passe en rouge. La liste reste dans ce navigateur.",
+        "Cliquez un pays sur la carte ou tirez-en un au hasard : plus il est clair, plus le choix est sûr.",
+        "Cochez « Je l’ai vu » après la soirée : le pays passe en rouge, et la liste reste dans ce navigateur.",
       ],
+      daily: "Le film du jour", dailyOpen: "Voir sa fiche",
       method: `
-        <p>La question : quel film national les gens de chaque pays ont-ils le plus vu ? Pas le plus gros succès à l'export, pas le mieux noté par la critique. Le film qu'un pays est allé voir.</p>
-        <p>Un film compte pour un pays si sa production et son équipe créative viennent de là, s'il est tourné dans une langue du pays, et si c'est une fiction. L'animation est acceptée. Un même film ne sert qu'une fois.</p>
+        <p>La question : quel film national les gens de chaque pays ont-ils le plus vu ? Pas le plus gros succès à l’export, pas le mieux noté par la critique. Le film qu’un pays est allé voir.</p>
+        <p>Un film compte pour un pays si sa production et son équipe créative viennent de là, s’il est tourné dans une langue du pays, et si c’est une fiction. L’animation est acceptée. Un même film ne sert qu’une fois.</p>
         <dl>
-          <dt><i style="background:var(--lvl-a)"></i>A</dt><dd>Box-office sourcé : le film national qui a fait le plus d'entrées dans le pays, ou à défaut le plus de recettes nationales. Sources : listes Wikipedia, instituts nationaux du cinéma, presse.</dd>
-          <dt><i style="background:var(--lvl-b)"></i>B</dt><dd>Pas de box-office publié : le film du pays le plus noté sur TMDB, 50 votes minimum. Ça mesure la notoriété plus que l'audience locale.</dd>
-          <dt><i style="background:var(--lvl-c)"></i>C</dt><dd>Données trop rares : le premier choix « native » de Films Around the World, une sélection éditoriale.</dd>
+          <dt><i style="background:var(--lvl-a)"></i>A</dt><dd>Box-office sourcé : le film national qui a fait le plus d’entrées dans le pays, ou à défaut le plus de recettes nationales. Sources : listes Wikipedia, instituts nationaux du cinéma, presse.</dd>
+          <dt><i style="background:var(--lvl-b)"></i>B</dt><dd>Pas de box-office publié : le film du pays le plus noté sur TMDB, 50 votes minimum. Ça mesure la notoriété plus que l’audience locale.</dd>
+          <dt><i style="background:var(--lvl-c)"></i>C</dt><dd>Données trop rares : le premier choix « native » de Films Around the World, une sélection éditoriale.</dd>
           <dt><i style="background:var(--lvl-d)"></i>D</dt><dd>Dernier recours : le film du pays le plus noté sur TMDB, moins de 50 votes.</dd>
         </dl>
-        <p>Les records mélangent les époques : la Pologne et le Royaume-Uni ont des records des années 1950 comptés en entrées, d'autres pays des records récents comptés en recettes. Une vingtaine de choix ont été vérifiés à part, et chaque arbitrage manuel est expliqué dans les données.</p>
+        <p>Les records mélangent les époques : la Pologne et le Royaume-Uni ont des records des années 1950 comptés en entrées, d’autres pays des records récents comptés en recettes. Une vingtaine de choix ont été vérifiés à part, et chaque arbitrage manuel est expliqué dans les données.</p>
         <p>Une erreur, un meilleur candidat ? Les données et le code sont sur <a href="https://github.com/alexis-morain/one-film-per-country">GitHub</a>, les corrections sourcées sont bienvenues.</p>`,
-      credits: (d) => `Données : <a href="https://www.themoviedb.org/">TMDB</a> (fiches, affiches, plateformes via JustWatch), listes de box-office Wikipedia et instituts nationaux, <a href="https://filmsaroundthe.world/">Films Around the World</a> pour les choix éditoriaux. Carte : Natural Earth via world-atlas. Mise à jour : ${d}. Code et données sur <a href="https://github.com/alexis-morain/one-film-per-country">GitHub</a>.`,
+      credits: (d) => `Données : <a href="https://www.themoviedb.org/">TMDB</a> (fiches, affiches, plateformes via JustWatch), listes de box-office Wikipedia et instituts nationaux, <a href="https://filmsaroundthe.world/">Films Around the World</a> pour les choix éditoriaux. Carte : Natural Earth via world-atlas.${d ? ` Mise à jour : ${d}.` : ""} Code et données sur <a href="https://github.com/alexis-morain/one-film-per-country">GitHub</a>.`,
     },
     en: {
       title: "One film per country",
       lede: "The most-watched national film in every country, in its original language.",
+      skip: "Skip to content",
       random: "Pick a random country",
       reset: "Reset", zoomIn: "Zoom in", zoomOut: "Zoom out",
       loading: "Loading the map…",
       loadError: "The map could not load. Please reload the page.",
       mapLabel: "World map, one film per country",
+      mapSection: "Map", asideLabel: "Film ticket",
       catalogueTitle: "The films, country by country",
       search: "Search", searchPh: "Country or film", levelLegend: "Reliability",
       fAvail: "Streaming in France", fAnim: "Animation", fUnseen: "Not seen yet",
@@ -87,11 +95,13 @@
       continents: { europe: "Europe", africa: "Africa", middle_east: "Middle East", asia: "Asia", americas: "Americas", oceania: "Oceania", other: "Elsewhere" },
       levels: {
         A: "Sourced national box office",
-        B: "No box office data: the country's most-rated film on TMDB",
+        B: "No box office data: the country’s most-rated film on TMDB",
         C: "Little data: editorial pick",
         D: "Last resort: very few votes",
         "": "No film found",
       },
+      reliability: (l) => `Reliability ${l}`,
+      posterOf: (title) => `Poster for ${title}`,
       legendSeen: "Watched",
       metric: {
         admissions: (v) => `${v} cinema admissions`,
@@ -101,51 +111,69 @@
         press: () => "Record reported by the national press",
       },
       why: "Why this film", runnerUp: "Runner-up", story: "The story", where: "Where to watch in France",
-      nowhere: "No known release in France. Try festivals, film archives or the country's own platforms.",
+      nowhere: "No known release in France. Try festivals, film archives or the country’s own platforms.",
       kinds: { flatrate: "subscription", free: "free", ads: "free with ads", rent: "rent", buy: "buy" },
       links: "Links", source: "Ranking source", alternatives: "Other leads",
       tmdbTop: "Most rated on TMDB", fatw: "Films Around the World pick", video: "Video phenomenon",
-      note: "Note (in French)", stub: (n) => `${n} countries`, short: "short film", seen: "I've watched it", seenOn: "Seen", min: "min", animation: "animation",
+      note: "Note (in French)", stub: (n) => `${n} countries`, short: "short film", seen: "I’ve watched it", seenOn: "Seen", min: "min", animation: "animation",
       noPoster: "No poster", noFilm: "No fiction film found for this country.",
       introTitle: "One night, one country",
       intro: [
-        "Click a country on the map, or pick one at random, to see its film.",
-        "The lighter the country, the safer the pick: the lightest have a sourced box office, the darkest rest on thin data.",
-        "Tick “I've watched it” after the screening and the country turns red. The list stays in this browser.",
+        "Click a country on the map or pick one at random: the lighter it is, the safer the pick.",
+        "Tick “I’ve watched it” after the screening: the country turns red, and the list stays in this browser.",
       ],
+      daily: "Film of the day", dailyOpen: "Open its ticket",
       method: `
-        <p>The question: which national film did people in each country watch the most? Not the biggest export hit, not the critics' favourite. The film a country actually went to see.</p>
+        <p>The question: which national film did people in each country watch the most? Not the biggest export hit, not the critics’ favourite. The film a country actually went to see.</p>
         <p>A film counts for a country if its production and creative team come from there, if it is in a language spoken there, and if it is fiction. Animation is allowed. A film is used only once.</p>
         <dl>
           <dt><i style="background:var(--lvl-a)"></i>A</dt><dd>Sourced box office: the national film with the most admissions in the country, or failing that the highest national gross. Sources: Wikipedia lists, national film institutes, press.</dd>
-          <dt><i style="background:var(--lvl-b)"></i>B</dt><dd>No published box office: the country's most-rated film on TMDB, 50 votes minimum. This measures reputation more than local audience.</dd>
+          <dt><i style="background:var(--lvl-b)"></i>B</dt><dd>No published box office: the country’s most-rated film on TMDB, 50 votes minimum. This measures reputation more than local audience.</dd>
           <dt><i style="background:var(--lvl-c)"></i>C</dt><dd>Too little data: the first “native voice” pick of Films Around the World, an editorial selection.</dd>
-          <dt><i style="background:var(--lvl-d)"></i>D</dt><dd>Last resort: the country's most-rated film on TMDB, under 50 votes.</dd>
+          <dt><i style="background:var(--lvl-d)"></i>D</dt><dd>Last resort: the country’s most-rated film on TMDB, under 50 votes.</dd>
         </dl>
         <p>Records span eras: Poland and the UK have 1950s records counted in admissions, other countries recent records counted in revenue. About twenty picks were checked separately, and every manual call is explained in the data (notes are in French).</p>
         <p>Spotted a mistake or a better candidate? Data and code are on <a href="https://github.com/alexis-morain/one-film-per-country">GitHub</a>, sourced corrections are welcome.</p>`,
-      credits: (d) => `Data: <a href="https://www.themoviedb.org/">TMDB</a> (films, posters, streaming via JustWatch), Wikipedia box office lists and national film institutes, <a href="https://filmsaroundthe.world/">Films Around the World</a> for editorial picks. Map: Natural Earth via world-atlas. Updated ${d}. Code and data on <a href="https://github.com/alexis-morain/one-film-per-country">GitHub</a>.`,
+      credits: (d) => `Data: <a href="https://www.themoviedb.org/">TMDB</a> (films, posters, streaming via JustWatch), Wikipedia box office lists and national film institutes, <a href="https://filmsaroundthe.world/">Films Around the World</a> for editorial picks. Map: Natural Earth via world-atlas.${d ? ` Updated ${d}.` : ""} Code and data on <a href="https://github.com/alexis-morain/one-film-per-country">GitHub</a>.`,
     },
   };
+
+  /* localStorage peut être absent ou refusé (navigation privée, stockage plein) */
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignoré */ } },
+  };
+  function loadSeen() {
+    try {
+      const a = JSON.parse(store.get(STORE_SEEN) || "[]");
+      return new Set(Array.isArray(a) ? a.filter((x) => typeof x === "string") : []);
+    } catch { return new Set(); }
+  }
+  function initialLang() {
+    const p = new URLSearchParams(location.search).get("lang");
+    if (p === "fr" || p === "en") return p;
+    const s = store.get(STORE_LANG);
+    if (s === "fr" || s === "en") return s;
+    const langs = navigator.languages?.length ? navigator.languages : [navigator.language || "fr"];
+    const first = langs.find((l) => /^(fr|en)\b/i.test(l));
+    return first && first.toLowerCase().startsWith("en") ? "en" : first ? "fr" : "en";
+  }
 
   const state = {
     lang: initialLang(),
     films: [], byIso: new Map(), updated: "",
-    seen: new Set(JSON.parse(localStorage.getItem(STORE_SEEN) || "[]")),
+    seen: loadSeen(),
     selected: null,
     filters: { q: "", levels: new Set(LEVELS), fr: false, anim: false, unseen: false },
   };
   let map; // {svg, g, zoom, path}
 
-  function initialLang() {
-    const p = new URLSearchParams(location.search).get("lang");
-    if (p === "fr" || p === "en") return p;
-    const s = localStorage.getItem(STORE_LANG);
-    if (s) return s;
-    return (navigator.language || "fr").toLowerCase().startsWith("fr") ? "fr" : "en";
-  }
   const t = () => T[state.lang];
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const dur = (ms) => (reduced() ? 0 : ms);
+  const isNarrow = () => window.matchMedia("(max-width: 900px)").matches;
+  const $ = (id) => document.getElementById(id);
 
   const regionNames = {};
   const langNames = {};
@@ -170,8 +198,14 @@
     }
     return s;
   }
+  function fmtDate(iso) {
+    const d = new Date(`${iso}T12:00:00`);
+    if (!iso || Number.isNaN(d.getTime())) return "";
+    return new Intl.DateTimeFormat(state.lang, { dateStyle: "long" }).format(d);
+  }
   const filmTitle = (f) => (state.lang === "fr" ? f.title_fr : f.title_en) || f.title;
   const hasFilm = (f) => !!f.level;
+  const levelBadge = (l) => `<b class="lv">${l}</b>`;
 
   /* ---------- Carte ---------- */
   function drawMap(world, nameToIso) {
@@ -196,10 +230,10 @@
       .on("mouseleave", hideTip)
       .on("click", (e, d) => d.iso && select(d.iso, { from: "map" }));
 
-    // Pays absents ou minuscules sur la carte : un point à leurs coordonnées
+    // Pays absents ou minuscules sur la carte : un point à leurs coordonnées (seuil sur l’aire réelle, pas sur l’écran)
     const drawn = new Map();
-    for (const ft of features) if (ft.iso) drawn.set(ft.iso, (drawn.get(ft.iso) || 0) + path.area(ft));
-    const dots = state.films.filter((f) => f.latlng && (drawn.get(f.iso2) || 0) < 9);
+    for (const ft of features) if (ft.iso) drawn.set(ft.iso, (drawn.get(ft.iso) || 0) + d3.geoArea(ft));
+    const dots = state.films.filter((f) => f.latlng && (drawn.get(f.iso2) || 0) < MICRO_AREA);
     g.selectAll("circle.dot").data(dots).join("circle")
       .attr("class", "dot country").attr("r", 3)
       .attr("cx", (f) => projection([f.latlng[1], f.latlng[0]])[0])
@@ -215,10 +249,14 @@
       });
     svg.call(zoom).on("dblclick.zoom", null);
     map = { svg, g, zoom, path, width, height };
-    d3.select("#zoom-in").on("click", () => svg.transition().duration(250).call(zoom.scaleBy, 1.6));
-    d3.select("#zoom-out").on("click", () => svg.transition().duration(250).call(zoom.scaleBy, 1 / 1.6));
-    d3.select("#zoom-reset").on("click", () => svg.transition().duration(350).call(zoom.transform, d3.zoomIdentity));
+    d3.select("#zoom-in").on("click", () => svg.transition().duration(dur(250)).call(zoom.scaleBy, 1.6));
+    d3.select("#zoom-out").on("click", () => svg.transition().duration(dur(250)).call(zoom.scaleBy, 1 / 1.6));
+    d3.select("#zoom-reset").on("click", resetZoom);
     paintMap();
+  }
+
+  function resetZoom() {
+    if (map) map.svg.transition().duration(dur(350)).call(map.zoom.transform, d3.zoomIdentity);
   }
 
   function paintMap() {
@@ -239,7 +277,7 @@
     map.g.selectAll(".selected").raise();
   }
 
-  const tip = () => document.getElementById("tooltip");
+  const tip = () => $("tooltip");
   function showTip(e, iso) {
     const f = iso && state.byIso.get(iso);
     if (!f) return hideTip();
@@ -254,13 +292,41 @@
   function hideTip() { tip().hidden = true; }
 
   /* ---------- Ticket ---------- */
-  function renderTicket() {
-    const el = document.getElementById("ticket");
+  // Film du jour : même film toute la journée (indice dérivé de la date), de niveau A avec affiche, non vu de préférence
+  function dailyFilm() {
+    const pool = state.films.filter((f) => f.level === "A" && f.poster);
+    if (!pool.length) return null;
+    const d = new Date();
+    const day = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000);
+    const start = (day * 7919) % pool.length;
+    for (let i = 0; i < pool.length; i++) {
+      const f = pool[(start + i) % pool.length];
+      if (!state.seen.has(f.iso2)) return f;
+    }
+    return pool[start];
+  }
+
+  function renderTicket({ animate = true } = {}) {
+    const el = $("ticket");
     const L = t();
     const f = state.selected && state.byIso.get(state.selected);
+    const body = (cls) => `<div class="ticket-body${animate ? "" : " still"}${cls ? ` ${cls}` : ""}">`;
     if (!f) {
-      el.innerHTML = `<div class="ticket-body ticket-intro">
+      if (!state.films.length) { el.innerHTML = ""; return; }
+      const day = dailyFilm();
+      const daily = day ? `<section class="daily"><h3>${esc(L.daily)}</h3>
+          <div class="daily-film">
+            <img class="daily-poster" src="${IMG}w342${esc(day.poster)}" width="342" height="513" alt="${esc(L.posterOf(day.title))}">
+            <div class="daily-txt">
+              <p class="daily-cty">${esc(countryName(day.iso2))}</p>
+              <p class="daily-title">${esc(filmTitle(day))}</p>
+              <p class="meta">${esc(day.year || "")}</p>
+              <button type="button" class="btn btn-primary" data-iso="${day.iso2}">${esc(L.dailyOpen)}</button>
+            </div>
+          </div></section>` : "";
+      el.innerHTML = `${body("ticket-intro")}
         <h2>${esc(L.introTitle)}</h2><div class="block">${L.intro.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+        ${daily}
         <div class="ticket-stub"><span>${esc(L.stub(state.films.length))}</span><span>${state.films.filter(hasFilm).length} films</span></div></div>`;
       return;
     }
@@ -268,12 +334,12 @@
     const head = `<h2>${esc(countryName(f.iso2))}</h2>`;
     const stub = `<div class="ticket-stub"><span>${esc(L.continents[f.continent] || "")}</span><span>N° ${String(idx).padStart(3, "0")}</span></div>`;
     if (!hasFilm(f)) {
-      el.innerHTML = `<div class="ticket-body">${head}<p class="block">${esc(L.noFilm)}</p>${f.note_fr ? `<p class="block note">${esc(f.note_fr)}</p>` : ""}${stub}</div>`;
+      el.innerHTML = `${body()}${head}<p class="block">${esc(L.noFilm)}</p>${f.note_fr ? `<p class="block note">${esc(f.note_fr)}</p>` : ""}${stub}</div>`;
       return;
     }
     const local = filmTitle(f);
     const poster = f.poster
-      ? `<img class="poster" src="${IMG}w342${esc(f.poster)}" alt="${esc(f.title)}" fetchpriority="high">`
+      ? `<img class="poster" src="${IMG}w342${esc(f.poster)}" width="116" height="174" alt="${esc(L.posterOf(f.title))}" fetchpriority="high">`
       : `<div class="poster empty">${esc(L.noPoster)}</div>`;
     const meta = [f.year, langName(f.lang), f.runtime ? `${f.runtime} ${L.min}` : "", f.animation ? L.animation : "", f.runtime && f.runtime < 60 ? L.short : ""].filter(Boolean).join(" · ");
     const metricFn = L.metric[f.metric];
@@ -296,7 +362,7 @@
       f.video && `<p><b>${esc(L.video)}</b> : ${linkify(f.video)}</p>`,
     ].filter(Boolean).join("");
     const seen = state.seen.has(f.iso2);
-    el.innerHTML = `<div class="ticket-body">` + head + `
+    el.innerHTML = body() + head + `
       <div class="film">${poster}<div>
         <h3 lang="${esc(LANG_FIX[f.lang] || f.lang)}">${esc(f.title)}</h3>
         ${local && local.toLowerCase() !== f.title.toLowerCase() ? `<p class="alt-title">${esc(local)}</p>` : ""}
@@ -304,7 +370,7 @@
       </div></div>
       <div class="block"><h4>${esc(L.why)}</h4>
         ${figure ? `<p class="figure">${esc(figure)}</p>` : ""}
-        <p class="level-tag"><i style="background:${LEVEL_COLOR[f.level]}"></i>${esc(f.level)} · ${esc(L.levels[f.level])}</p>
+        <p class="level-tag"><i style="background:${LEVEL_COLOR[f.level]}"></i>${levelBadge(esc(f.level))} ${esc(L.levels[f.level])}</p>
         ${f.runner_up ? `<p class="note">${esc(L.runnerUp)} : ${esc(f.runner_up)}</p>` : ""}
       </div>
       ${overview ? `<div class="block"><h4>${esc(L.story)}</h4><p class="overview">${esc(overview)}</p></div>` : ""}
@@ -341,33 +407,53 @@
   function renderGrid() {
     const L = t();
     const list = filtered();
-    document.getElementById("count").textContent = L.count(list.length);
+    const grid = $("grid");
+    const focusedIso = grid.contains(document.activeElement) ? document.activeElement.dataset?.iso : null;
+    $("count").textContent = L.count(list.length);
     const groups = CONTINENTS.map((c) => [c, list.filter((f) => f.continent === c)]).filter(([, l]) => l.length);
     const collator = new Intl.Collator(state.lang);
-    document.getElementById("grid").innerHTML = groups.map(([c, l]) => {
+    grid.innerHTML = groups.map(([c, l]) => {
       l.sort((a, b) => collator.compare(countryName(a.iso2), countryName(b.iso2)));
       return `<section class="continent"><div class="continent-head"><h3>${esc(L.continents[c])}</h3><span>${l.length}</span></div>
         <ul class="posters">${l.map((f) => `<li><button type="button" data-iso="${f.iso2}">
-          <span class="img">${f.poster ? `<img src="${IMG}w185${esc(f.poster)}" alt="" loading="lazy">` : `<span class="noimg">${esc(f.title)}</span>`}
-          <span class="lvl" style="background:${LEVEL_COLOR[f.level]}">${f.level}</span>
+          <span class="img">${f.poster ? `<img src="${IMG}w185${esc(f.poster)}" width="185" height="278" alt="" loading="lazy">` : `<span class="noimg">${esc(f.title)}</span>`}
+          <span class="lvl lvl-${f.level}" style="background:${LEVEL_COLOR[f.level]}" aria-hidden="true">${f.level}</span><span class="visually-hidden">${esc(L.reliability(f.level))}. </span>
           ${state.seen.has(f.iso2) ? `<span class="seen-mark">${esc(L.seenOn)}</span>` : ""}</span>
           <span class="cty">${esc(countryName(f.iso2))}</span><span class="ttl">${esc(filmTitle(f))}${f.year ? `, ${esc(f.year)}` : ""}</span>
         </button></li>`).join("")}</ul></section>`;
     }).join("");
+    if (focusedIso) grid.querySelector(`button[data-iso="${focusedIso}"]`)?.focus({ preventScroll: true });
   }
 
   /* ---------- Actions ---------- */
+  function announce(iso) {
+    const f = state.byIso.get(iso);
+    if (!f) return;
+    $("announce").textContent = `${countryName(iso)} : ${hasFilm(f) ? filmTitle(f) : t().noFilm}`;
+  }
+
   function select(iso, { from } = {}) {
     if (!state.byIso.has(iso)) return;
     state.selected = iso;
     history.replaceState(null, "", `#${iso}`);
     renderTicket();
     paintMap();
+    announce(iso);
+    const ticket = $("ticket");
+    if (from === "grid" || from === "map") ticket.focus({ preventScroll: true });
     if (from !== "map" && map) focusCountry(iso);
-    if (window.matchMedia("(max-width: 900px)").matches || from === "grid") {
-      document.getElementById(from === "grid" && !window.matchMedia("(max-width: 900px)").matches ? "map" : "ticket")
-        .scrollIntoView({ behavior: "smooth", block: "start" });
+    const narrow = isNarrow();
+    if (narrow || from === "grid") {
+      $(from === "grid" && !narrow ? "map" : "ticket").scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
     }
+  }
+
+  function deselect() {
+    state.selected = null;
+    $("announce").textContent = "";
+    renderTicket();
+    paintMap();
+    resetZoom();
   }
 
   function focusCountry(iso) {
@@ -381,13 +467,16 @@
     const k = Math.max(1, Math.min(6, 0.35 / Math.max((x1 - x0) / map.width, (y1 - y0) / map.height)));
     const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
     const tr = d3.zoomIdentity.translate(map.width / 2, map.height / 2).scale(k).translate(-cx, -cy);
-    map.svg.transition().duration(600).call(map.zoom.transform, tr);
+    map.svg.transition().duration(dur(600)).call(map.zoom.transform, tr);
   }
 
   function toggleSeen(iso, on) {
     on ? state.seen.add(iso) : state.seen.delete(iso);
-    localStorage.setItem(STORE_SEEN, JSON.stringify([...state.seen]));
-    renderProgress(); renderTicket(); renderGrid(); paintMap();
+    store.set(STORE_SEEN, JSON.stringify([...state.seen]));
+    const top = $("ticket").scrollTop;
+    renderProgress(); renderTicket({ animate: false }); renderGrid(); paintMap();
+    $("ticket").scrollTop = top;
+    $("seen-box")?.focus({ preventScroll: true });
   }
 
   let rolling = false;
@@ -397,24 +486,24 @@
     const list = pool.length ? pool : state.films.filter(hasFilm);
     const pick = () => list[Math.floor(Math.random() * list.length)].iso2;
     const target = pick();
-    // onglet masqué : les minuteries sont ralenties à 1 s, l'animation durerait 10 s
-    if (!map || document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return select(target);
-    // une dizaine de pays s'allument, de plus en plus lentement, puis le tirage se pose
+    // onglet masqué : les minuteries sont ralenties à 1 s, l’animation durerait 10 s
+    if (!map || document.hidden || reduced()) return select(target);
+    // une dizaine de pays s’allument, de plus en plus lentement, puis le tirage se pose
     rolling = true;
-    const btn = document.getElementById("random");
-    btn.disabled = true;
+    const btn = $("random");
+    btn.setAttribute("aria-disabled", "true"); // pas `disabled` : le bouton garde le focus
     const delays = [60, 60, 70, 80, 95, 115, 140, 175, 220, 280];
     const flash = (iso) => map.g.selectAll(".country").classed("flash", (d) => (d.iso ?? d.iso2) === iso);
     let i = 0;
     const step = () => {
       if (i < delays.length) { flash(pick()); setTimeout(step, delays[i++]); return; }
-      flash(null); rolling = false; btn.disabled = false; select(target);
+      flash(null); rolling = false; btn.removeAttribute("aria-disabled"); select(target);
     };
     step();
   }
 
   function renderProgress() {
-    document.getElementById("progress").innerHTML = t().progress(state.seen.size, state.films.filter(hasFilm).length);
+    $("progress").innerHTML = state.films.length ? t().progress(state.seen.size, state.films.filter(hasFilm).length) : "";
   }
 
   function renderStatic() {
@@ -423,13 +512,14 @@
     document.title = L.title;
     document.querySelectorAll("[data-i18n]").forEach((n) => { if (typeof L[n.dataset.i18n] === "string") n.textContent = L[n.dataset.i18n]; });
     document.querySelectorAll("[data-i18n-placeholder]").forEach((n) => { n.placeholder = L[n.dataset.i18nPlaceholder]; });
+    document.querySelectorAll("[data-i18n-label]").forEach((n) => { n.setAttribute("aria-label", L[n.dataset.i18nLabel]); });
     document.querySelectorAll(".lang-switch button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang)));
-    document.getElementById("zoom-in").setAttribute("aria-label", L.zoomIn);
-    document.getElementById("zoom-out").setAttribute("aria-label", L.zoomOut);
-    document.getElementById("legend").innerHTML = [...LEVELS, ""].map((l) =>
-      `<li><i style="background:${LEVEL_COLOR[l]}"></i>${l ? `${l} · ` : ""}${esc(L.levels[l])}</li>`).join("")
+    $("zoom-in").setAttribute("aria-label", L.zoomIn);
+    $("zoom-out").setAttribute("aria-label", L.zoomOut);
+    $("legend").innerHTML = [...LEVELS, ""].map((l) =>
+      `<li><i style="background:${LEVEL_COLOR[l]}"></i>${l ? `${levelBadge(l)} ` : ""}${esc(L.levels[l])}</li>`).join("")
       + `<li><i style="background:var(--accent)"></i>${esc(L.legendSeen)}</li>`;
-    const lf = document.getElementById("level-filter");
+    const lf = $("level-filter");
     lf.querySelectorAll("button").forEach((b) => b.remove());
     for (const l of LEVELS) {
       const b = document.createElement("button");
@@ -438,23 +528,27 @@
       b.innerHTML = `<i style="background:${LEVEL_COLOR[l]}"></i>${l}`;
       lf.appendChild(b);
     }
-    document.getElementById("method-body").innerHTML = L.method;
-    document.getElementById("credits").innerHTML = L.credits(state.updated);
+    $("method-body").innerHTML = L.method;
+    $("credits").innerHTML = L.credits(fmtDate(state.updated));
     renderProgress();
   }
 
   function renderAll() { renderStatic(); renderTicket(); renderGrid(); paintMap(); }
 
   function bind() {
-    document.getElementById("random").addEventListener("click", randomPick);
+    $("random").addEventListener("click", randomPick);
     document.querySelectorAll(".lang-switch button").forEach((b) => b.addEventListener("click", () => {
-      state.lang = b.dataset.lang; localStorage.setItem(STORE_LANG, state.lang); renderAll();
+      state.lang = b.dataset.lang; store.set(STORE_LANG, state.lang); renderAll();
     }));
-    document.getElementById("grid").addEventListener("click", (e) => {
+    $("grid").addEventListener("click", (e) => {
       const b = e.target.closest("button[data-iso]");
       if (b) select(b.dataset.iso, { from: "grid" });
     });
-    document.getElementById("level-filter").addEventListener("click", (e) => {
+    $("ticket").addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-iso]");
+      if (b) select(b.dataset.iso, { from: "map" });
+    });
+    $("level-filter").addEventListener("click", (e) => {
       const b = e.target.closest("button[data-level]");
       if (!b) return;
       const s = state.filters.levels;
@@ -462,12 +556,24 @@
       b.setAttribute("aria-pressed", String(s.has(b.dataset.level)));
       renderGrid(); paintMap();
     });
-    document.getElementById("q").addEventListener("input", (e) => { state.filters.q = e.target.value; renderGrid(); paintMap(); });
+    $("filters").addEventListener("submit", (e) => e.preventDefault());
+    let timer;
+    $("q").addEventListener("input", (e) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { state.filters.q = e.target.value; renderGrid(); paintMap(); }, 150);
+    });
     for (const [id, key] of [["f-fr", "fr"], ["f-anim", "anim"], ["f-unseen", "unseen"]]) {
-      document.getElementById(id).addEventListener("change", (e) => { state.filters[key] = e.target.checked; renderGrid(); paintMap(); });
+      $(id).addEventListener("change", (e) => { state.filters[key] = e.target.checked; renderGrid(); paintMap(); });
     }
-    window.addEventListener("hashchange", () => { const iso = location.hash.slice(1).toUpperCase(); if (iso !== state.selected) select(iso); });
+    window.addEventListener("hashchange", () => {
+      const iso = location.hash.slice(1).toUpperCase();
+      if (!iso) { if (state.selected) deselect(); return; }
+      if (iso !== state.selected) select(iso);
+    });
   }
+
+  // Langue et textes statiques tout de suite, avant le chargement des données
+  renderStatic();
 
   Promise.all([fetch("data/films.json").then((r) => r.json()), fetch("data/world-50m.json").then((r) => r.json())])
     .then(([data, world]) => {
@@ -477,12 +583,12 @@
       bind();
       renderStatic(); renderGrid();
       drawMap(world, data.name_to_iso);
-      document.getElementById("map-status").hidden = true;
+      $("map-status").hidden = true;
       const iso = location.hash.slice(1).toUpperCase();
       if (state.byIso.has(iso)) select(iso); else renderTicket();
     })
     .catch(() => {
-      const st = document.getElementById("map-status");
+      const st = $("map-status");
       st.textContent = t().loadError;
       st.hidden = false;
     });
