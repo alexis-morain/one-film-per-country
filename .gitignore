@@ -1,0 +1,13 @@
+.env
+.env.bak.*
+__pycache__/
+*.pyc
+.DS_Store
+
+# notes de travail privées
+CLAUDE.md
+docs/journal.md
+plans/
+data/raw/*_log.txt
+.impeccable/
+.playwright-mcp/

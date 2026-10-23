@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Un film par pays</title>
+  <meta name="description" content="Le film national le plus vu dans chaque pays, dans sa langue d'origine. Une carte, 199 pays, une soirée par pays.">
+  <meta property="og:title" content="Un film par pays / One film per country">
+  <meta property="og:description" content="Le film national le plus vu dans chaque pays, dans sa langue d'origine.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-title">
+      <h1 data-i18n="title">Un film par pays</h1>
+      <p class="lede" data-i18n="lede">Le film national le plus vu dans chaque pays, dans sa langue d'origine.</p>
+    </div>
+    <div class="masthead-tools">
+      <p class="progress" id="progress"></p>
+      <button class="btn btn-primary" id="random" type="button" data-i18n="random">Tirer un pays au hasard</button>
+      <div class="lang-switch" role="group" aria-label="Langue / Language">
+        <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="top">
+    <section class="stage" aria-label="Carte">
+      <div class="screen">
+        <svg id="map" role="img" aria-labelledby="map-label"><title id="map-label" data-i18n="mapLabel">Carte du monde, un film par pays</title></svg>
+        <div class="map-zoom">
+          <button type="button" id="zoom-in" aria-label="Zoom avant"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg></button>
+          <button type="button" id="zoom-out" aria-label="Zoom arrière"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10"/></svg></button>
+          <button type="button" id="zoom-reset" data-i18n="reset">Recentrer</button>
+        </div>
+        <div class="tooltip" id="tooltip" hidden></div>
+        <p class="map-status" id="map-status" data-i18n="loading">Chargement de la carte…</p>
+      </div>
+      <ul class="legend" id="legend"></ul>
+    </section>
+
+    <aside class="ticket" id="ticket" aria-live="polite"></aside>
+    </div>
+
+    <section class="catalogue" id="catalogue">
+      <div class="catalogue-head">
+        <h2 data-i18n="catalogueTitle">Les films, pays par pays</h2>
+        <form class="filters" id="filters" onsubmit="return false">
+          <label class="search">
+            <span class="visually-hidden" data-i18n="search">Chercher</span>
+            <input type="search" id="q" data-i18n-placeholder="searchPh" placeholder="Pays ou film">
+          </label>
+          <fieldset class="chips" id="level-filter">
+            <legend class="visually-hidden" data-i18n="levelLegend">Fiabilité</legend>
+          </fieldset>
+          <label class="check"><input type="checkbox" id="f-fr"> <span data-i18n="fAvail">Visible en France</span></label>
+          <label class="check"><input type="checkbox" id="f-anim"> <span data-i18n="fAnim">Animation</span></label>
+          <label class="check"><input type="checkbox" id="f-unseen"> <span data-i18n="fUnseen">Pas encore vus</span></label>
+        </form>
+      </div>
+      <p class="count" id="count"></p>
+      <div id="grid"></div>
+    </section>
+
+    <section class="method" id="method">
+      <h2 data-i18n="methodTitle">Comment les films ont été choisis</h2>
+      <div class="method-body" id="method-body"></div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p id="credits"></p>
+    <p class="tmdb" data-i18n="tmdb">Ce site utilise l'API TMDB sans être approuvé ni certifié par TMDB.</p>
+  </footer>
+
+  <script src="vendor/d3.min.js"></script>
+  <script src="vendor/topojson-client.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

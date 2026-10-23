@@ -1,0 +1,982 @@
+[
+ {
+  "slug": "algeria",
+  "film_slug": "the-battle-of-algiers-f280ee52e012d0a0e",
+  "text": "Algeria | | The Battle of Algiers | | 1966 · 122 min"
+ },
+ {
+  "slug": "angola",
+  "film_slug": "sambizanga-f7883e975b7e724f7",
+  "text": "Angola | | Sambizanga | | 1972"
+ },
+ {
+  "slug": "benin",
+  "film_slug": "sous-le-signe-du-vaudou-f78f203ff591a6305",
+  "text": "Benin | | Sous le signe du vaudou | | 1974"
+ },
+ {
+  "slug": "botswana",
+  "film_slug": "ngaka-fcea1e639040f8bb5",
+  "text": "Botswana | | Ngaka | | 1976"
+ },
+ {
+  "slug": "burkina-faso",
+  "film_slug": "wend-kuuni-f7b306511670049bb",
+  "text": "Burkina Faso | | Wend Kuuni | | 1982"
+ },
+ {
+  "slug": "burundi",
+  "film_slug": "gito-l-ingrat-f51b7b6751e068d3e",
+  "text": "Burundi | | Gito l&#39;ingrat | | 1992"
+ },
+ {
+  "slug": "cabo-verde",
+  "film_slug": "hanami-f0880c63a9a1e2a7f",
+  "text": "Cabo Verde | | Hanami | | 2024"
+ },
+ {
+  "slug": "cameroon",
+  "film_slug": "muna-moto-fb4012e0bf3c395ed",
+  "text": "Cameroon | | Muna Moto | | 1975"
+ },
+ {
+  "slug": "central-african-republic",
+  "film_slug": "we-students-f7e26c7e74af13652",
+  "text": "Central African Republic | | We, Students! | | 2022"
+ },
+ {
+  "slug": "chad",
+  "film_slug": "bye-bye-africa-fb34bc995d48acfbe",
+  "text": "Chad | | Bye Bye Africa | | 1999"
+ },
+ {
+  "slug": "comoros",
+  "film_slug": "yeyamba-wandze-mdrou-ndo-fd72b6e081afa42e4",
+  "text": "Comoros | | Yéyamba Wandzé Mdrou Ndo? | | 2000"
+ },
+ {
+  "slug": "democratic-republic-of-the-congo",
+  "film_slug": "viva-riva-f931fdd22c03ee7ee",
+  "text": "Democratic Republic of the Congo | | Viva Riva! | | 2010"
+ },
+ {
+  "slug": "djibouti",
+  "film_slug": "dhalinyaro-fd603e389fe341fd0",
+  "text": "Djibouti | | Dhalinyaro | | 2018"
+ },
+ {
+  "slug": "egypt",
+  "film_slug": "cairo-station-fdf45994ab4099776",
+  "text": "Egypt | | Cairo Station | | 1958"
+ },
+ {
+  "slug": "equatorial-guinea",
+  "film_slug": "teresa-fccdc5089f8e0b34a",
+  "text": "Equatorial Guinea | | Teresa | | 2010"
+ },
+ {
+  "slug": "eritrea",
+  "film_slug": "barud-77-f882991ee7fc593a6",
+  "text": "Eritrea | | Barud 77 | | 1997"
+ },
+ {
+  "slug": "ethiopia",
+  "film_slug": "teza-f356baf57a562630c",
+  "text": "Ethiopia | | Teza | | 2008"
+ },
+ {
+  "slug": "gabon",
+  "film_slug": "dole-fba1f512c5c2e60e3",
+  "text": "Gabon | | Dôlè | | 2000"
+ },
+ {
+  "slug": "gambia",
+  "film_slug": "hand-of-fate-fda370ae8556f8367",
+  "text": "Gambia | | Hand of Fate | | 2013"
+ },
+ {
+  "slug": "ghana",
+  "film_slug": "love-brewed-in-the-african-pot-f5548f65a585f8708",
+  "text": "Ghana | | Love Brewed in the African Pot | | 1980"
+ },
+ {
+  "slug": "guinea",
+  "film_slug": "l-absence-f35d35c0e51a82731",
+  "text": "Guinea | | L&#39;Absence | | 2009"
+ },
+ {
+  "slug": "guinea-bissau",
+  "film_slug": "the-blue-eyes-of-yonta-f76ec3b5b8039d4ec",
+  "text": "Guinea Bissau | | The Blue Eyes of Yonta | | 1992"
+ },
+ {
+  "slug": "ivory-coast",
+  "film_slug": "faces-of-women-f6e806d5a66704585",
+  "text": "Ivory Coast | | Faces of Women | | 1985"
+ },
+ {
+  "slug": "kenya",
+  "film_slug": "nairobi-half-life-f7f907c0527196075",
+  "text": "Kenya | | Nairobi Half Life | | 2012 · 96 min"
+ },
+ {
+  "slug": "lesotho",
+  "film_slug": "this-is-not-a-burial-it-s-a-resurrection-fa007522f36567179",
+  "text": "Lesotho | | This Is Not a Burial, It&#39;s a Resurrection | | 2020"
+ },
+ {
+  "slug": "liberia",
+  "film_slug": "murder-in-the-cassava-patch-f27591403032c5cc8",
+  "text": "Liberia | | Murder in the Cassava Patch | | 2012"
+ },
+ {
+  "slug": "libya",
+  "film_slug": "freedom-fields-f54a19db838af6eff",
+  "text": "Libya | | Freedom Fields | | 2018"
+ },
+ {
+  "slug": "madagascar",
+  "film_slug": "tabataba-f670d6d0801fbea65",
+  "text": "Madagascar | | Tabataba | | 1989"
+ },
+ {
+  "slug": "malawi",
+  "film_slug": "the-road-to-sunrise-f755feb3a4a13454b",
+  "text": "Malawi | | The Road to Sunrise | | 2017"
+ },
+ {
+  "slug": "mali",
+  "film_slug": "yeelen-f64ddce36d2fa08fa",
+  "text": "Mali | | Yeelen | | 1987"
+ },
+ {
+  "slug": "mauritania",
+  "film_slug": "waiting-for-happiness-fe84e424ab94278cf",
+  "text": "Mauritania | | Waiting for Happiness | | 2002"
+ },
+ {
+  "slug": "mauritius",
+  "film_slug": "lonbraz-kann-f1b333aaca8af2b26",
+  "text": "Mauritius | | Lonbraz Kann | | 2014"
+ },
+ {
+  "slug": "morocco",
+  "film_slug": "wechma-f558776642019d466",
+  "text": "Morocco | | Wechma | | 1970 · 107 min"
+ },
+ {
+  "slug": "mozambique",
+  "film_slug": "mueda-memory-and-massacre-fab12f0f2f3a6c885",
+  "text": "Mozambique | | Mueda, Memory and Massacre | | 1979"
+ },
+ {
+  "slug": "namibia",
+  "film_slug": "katutura-f4fe5a5d8e64bde6c",
+  "text": "Namibia | | Katutura | | 2015"
+ },
+ {
+  "slug": "niger",
+  "film_slug": "the-wedding-ring-fc5471ef799bb29c7",
+  "text": "Niger | | The Wedding Ring | | 2016"
+ },
+ {
+  "slug": "nigeria",
+  "film_slug": "living-in-bondage-fe456a129c1d915ef",
+  "text": "Nigeria | | Living in Bondage | | 1992"
+ },
+ {
+  "slug": "republic-of-the-congo",
+  "film_slug": "la-rancon-d-une-alliance-f6f7324a3da5cd10a",
+  "text": "Republic of the Congo | | La Rançon d&#39;une alliance | | 1974"
+ },
+ {
+  "slug": "rwanda",
+  "film_slug": "the-mercy-of-the-jungle-f656951146a226db0",
+  "text": "Rwanda | | The Mercy of the Jungle | | 2018"
+ },
+ {
+  "slug": "sao-tome-and-principe",
+  "film_slug": "a-frutinha-do-equador-f3ee1b3165ff9340c",
+  "text": "Sao Tome and Principe | | A Frutinha do Equador | | 1998"
+ },
+ {
+  "slug": "senegal",
+  "film_slug": "black-girl-f8aa01e669aa8f087",
+  "text": "Senegal | | Black Girl | | 1966"
+ },
+ {
+  "slug": "seychelles",
+  "film_slug": "bolot-feray-f7549482b57cf5ed7",
+  "text": "Seychelles | | Bolot Feray | | 1995"
+ },
+ {
+  "slug": "sierra-leone",
+  "film_slug": "survivors-fb5ea66975f661bc3",
+  "text": "Sierra Leone | | Survivors | | 2018"
+ },
+ {
+  "slug": "somalia",
+  "film_slug": "geedka-nolosha-faa358e95cf466bf3",
+  "text": "Somalia | | Geedka nolosha | | 1988"
+ },
+ {
+  "slug": "somaliland",
+  "film_slug": "the-somali-dervish-f1adde18cc34218bb",
+  "text": "Somaliland | | The Somali Dervish | | 1985"
+ },
+ {
+  "slug": "south-africa",
+  "film_slug": "mapantsula-f060c8020ad4f937d",
+  "text": "South Africa | | Mapantsula | | 1988"
+ },
+ {
+  "slug": "south-sudan",
+  "film_slug": "no-simple-way-home-f335ca89f30e0065b",
+  "text": "South Sudan | | No Simple Way Home | | 2022"
+ },
+ {
+  "slug": "sudan",
+  "film_slug": "you-will-die-at-20-f0fb74ef42e0ea990",
+  "text": "Sudan | | You Will Die at 20 | | 2019"
+ },
+ {
+  "slug": "swaziland",
+  "film_slug": "umshana-f5fe397ff4b2cbc4d",
+  "text": "Swaziland | | Umshana | | 2015"
+ },
+ {
+  "slug": "tanzania",
+  "film_slug": "these-hands-f48c38d7518df2e6f",
+  "text": "Tanzania | | These Hands | | 1992"
+ },
+ {
+  "slug": "togo",
+  "film_slug": "le-coup-de-grace-fc63bbe54e7798945",
+  "text": "Togo | | Le coup de grâce | | 2022"
+ },
+ {
+  "slug": "tunisia",
+  "film_slug": "the-silences-of-the-palace-f48a64451386721b8",
+  "text": "Tunisia | | The Silences of the Palace | | 1994"
+ },
+ {
+  "slug": "uganda",
+  "film_slug": "who-killed-captain-alex-fa593b4f7135cbdf4",
+  "text": "Uganda | | Who Killed Captain Alex? | | 2010"
+ },
+ {
+  "slug": "western-sahara",
+  "film_slug": "sahara-occidental-independance-ou-genocide-fbe7bcd15051247ec",
+  "text": "Western Sahara | | Sahara Occidental indépendance ou génocide? | | 1976"
+ },
+ {
+  "slug": "zambia",
+  "film_slug": "on-becoming-a-guinea-fowl-f65047675c0d22ae7",
+  "text": "Zambia | | On Becoming a Guinea Fowl | | 2024"
+ },
+ {
+  "slug": "zimbabwe",
+  "film_slug": "flame-f48907e7518b3bb59",
+  "text": "Zimbabwe | | Flame | | 1996"
+ },
+ {
+  "slug": "afghanistan",
+  "film_slug": "osama-fe13f6827905d8e94",
+  "text": "Afghanistan | | Osama | | 2004"
+ },
+ {
+  "slug": "armenia",
+  "film_slug": "the-color-of-pomegranates-fc14231a1f400d625",
+  "text": "Armenia | | The Color of Pomegranates | | 1969 · 80 min"
+ },
+ {
+  "slug": "azerbaijan",
+  "film_slug": "step-mother-fec0b3975fdc46409",
+  "text": "Azerbaijan | | Step Mother | | 1958 · 82 min"
+ },
+ {
+  "slug": "bahrain",
+  "film_slug": "the-barrier-fb1b79d7b9ce09270",
+  "text": "Bahrain | | The Barrier | | 1990"
+ },
+ {
+  "slug": "bangladesh",
+  "film_slug": "amra-ekta-cinema-banabo-f12b3e9d9ba8dd096",
+  "text": "Bangladesh | | Amra Ekta Cinema Banabo | | 2019"
+ },
+ {
+  "slug": "bhutan",
+  "film_slug": "lunana-a-yak-in-the-classroom-f8ecbbcf8aba60c8c",
+  "text": "Bhutan | | Lunana: A Yak in the Classroom | | 2019"
+ },
+ {
+  "slug": "brunei",
+  "film_slug": "yasmine-f17b4d68cefb3bb3d",
+  "text": "Brunei | | Yasmine | | 2014"
+ },
+ {
+  "slug": "cambodia",
+  "film_slug": "first-they-killed-my-father-f740c7f98a68bf9bf",
+  "text": "Cambodia | | First They Killed My Father | | 2017"
+ },
+ {
+  "slug": "china",
+  "film_slug": "spring-in-a-small-town-fd2e398bc3466c368",
+  "text": "China | | Spring in a Small Town | | 1948 · 94 min"
+ },
+ {
+  "slug": "cyprus",
+  "film_slug": "knifer-faf3150f5dbdc2890",
+  "text": "Cyprus | | Knifer | | 2010"
+ },
+ {
+  "slug": "east-timor",
+  "film_slug": "beatriz-s-war-fb1c1aa7b9ce8fd0c",
+  "text": "East Timor | | Beatriz&#39;s War | | 2013"
+ },
+ {
+  "slug": "georgia",
+  "film_slug": "repentance-fa5573780e05258ca",
+  "text": "Georgia | | Repentance | | 1987 · 153 min"
+ },
+ {
+  "slug": "india",
+  "film_slug": "3-idiots-ffba211b32e09fc14",
+  "text": "India | | 3 Idiots | | 2009 · 171 min"
+ },
+ {
+  "slug": "indonesia",
+  "film_slug": "the-raid-ffada4a6f66ecde35",
+  "text": "Indonesia | | The Raid | | 2011"
+ },
+ {
+  "slug": "iran",
+  "film_slug": "a-separation-fd26233081c22dd1f",
+  "text": "Iran | | A Separation | | 2011 · 123 min"
+ },
+ {
+  "slug": "iraq",
+  "film_slug": "the-president-s-cake-fe282b2427bd0bc7e",
+  "text": "Iraq | | The President&#39;s Cake | | 2025"
+ },
+ {
+  "slug": "israel",
+  "film_slug": "gett-the-trial-of-viviane-amsalem-f0a13f7634b4471c4",
+  "text": "Israel | | Gett: The Trial of Viviane Amsalem | | 2014"
+ },
+ {
+  "slug": "japan",
+  "film_slug": "grave-of-the-fireflies-f35763f57a56bac41",
+  "text": "Japan | | Grave of the Fireflies | | 1988 · 89 min"
+ },
+ {
+  "slug": "jordan",
+  "film_slug": "theeb-f0db941262da4d637",
+  "text": "Jordan | | Theeb | | 2014"
+ },
+ {
+  "slug": "kazakhstan",
+  "film_slug": "the-needle-f644ee9b369890145",
+  "text": "Kazakhstan | | The Needle | | 1989"
+ },
+ {
+  "slug": "kuwait",
+  "film_slug": "the-cruel-sea-f121721f406c8fa84",
+  "text": "Kuwait | | The Cruel Sea | | 1972"
+ },
+ {
+  "slug": "kyrgyzstan",
+  "film_slug": "the-white-ship-faadf3d31c5be3d9e",
+  "text": "Kyrgyzstan | | The White Ship | | 1976"
+ },
+ {
+  "slug": "laos",
+  "film_slug": "sabaidee-luang-prabang-fd7dcd49f7e0ddc5d",
+  "text": "Laos | | Sabaidee Luang Prabang | | 2008"
+ },
+ {
+  "slug": "lebanon",
+  "film_slug": "capernaum-fa40b802637b1f0fa",
+  "text": "Lebanon | | Capernaum | | 2018"
+ },
+ {
+  "slug": "malaysia",
+  "film_slug": "paskal-ff7ad458e66ee9c70",
+  "text": "Malaysia | | PASKAL | | 2018"
+ },
+ {
+  "slug": "maldives",
+  "film_slug": "dheriyaa-fd7325e081b004662",
+  "text": "Maldives | | Dheriyaa | | 1994"
+ },
+ {
+  "slug": "mongolia",
+  "film_slug": "tsogt-taij-f770171a1182f11d5",
+  "text": "Mongolia | | Tsogt Taij | | 1945 · 155 min"
+ },
+ {
+  "slug": "myanmar",
+  "film_slug": "mudras-calling-f3676c3f3cfea510b",
+  "text": "Myanmar | | Mudras Calling | | 2018"
+ },
+ {
+  "slug": "nepal",
+  "film_slug": "je-bho-ramrai-bho-f9e6739641f89e0da",
+  "text": "Nepal | | Je Bho Ramrai Bho | | 2003"
+ },
+ {
+  "slug": "north-korea",
+  "film_slug": "hong-gil-dong-f9665f7a1644fd1a7",
+  "text": "North Korea | | Hong Gil-dong | | 1986"
+ },
+ {
+  "slug": "oman",
+  "film_slug": "destiny-f989f55783ffb771c",
+  "text": "Oman | | Destiny | | 1921 · outside view"
+ },
+ {
+  "slug": "pakistan",
+  "film_slug": "dajjal-the-slayer-and-his-followers-f1f0613b243780e4a",
+  "text": "Pakistan | | Dajjal The Slayer and His Followers | | 2019"
+ },
+ {
+  "slug": "philippines",
+  "film_slug": "on-the-job-2-the-missing-8-f7497748a5edfd36d",
+  "text": "Philippines | | On The Job 2: The Missing 8 | | 2021 · 208 min"
+ },
+ {
+  "slug": "saudi-arabia",
+  "film_slug": "wadjda-f37b4f54a668b82d8",
+  "text": "Saudi Arabia | | Wadjda | | 2012"
+ },
+ {
+  "slug": "singapore",
+  "film_slug": "ilo-ilo-fefeb195c568d8341",
+  "text": "Singapore | | Ilo Ilo | | 2013"
+ },
+ {
+  "slug": "south-korea",
+  "film_slug": "parasite-fd2d7454bb9385c5c",
+  "text": "South Korea | | Parasite | | 2019 · 133 min"
+ },
+ {
+  "slug": "sri-lanka",
+  "film_slug": "gamani-f04099a7c4f775b29",
+  "text": "Sri Lanka | | Gamani | | 2011"
+ },
+ {
+  "slug": "syria",
+  "film_slug": "for-sama-feaf591052cdbb5f0",
+  "text": "Syria | | For Sama | | 2019"
+ },
+ {
+  "slug": "taiwan",
+  "film_slug": "crouching-tiger-hidden-dragon-f408e1d20c780644f",
+  "text": "Taiwan | | Crouching Tiger, Hidden Dragon | | 2000"
+ },
+ {
+  "slug": "tajikistan",
+  "film_slug": "the-bodyguard-f95f978289c2ebe76",
+  "text": "Tajikistan | | The Bodyguard | | 1979"
+ },
+ {
+  "slug": "thailand",
+  "film_slug": "ong-bak-f46f844f52ba4bc55",
+  "text": "Thailand | | Ong-Bak | | 2003 · 105 min"
+ },
+ {
+  "slug": "turkey",
+  "film_slug": "mustang-f2fc20f95408519ce",
+  "text": "Turkey | | Mustang | | 2015 · 97 min"
+ },
+ {
+  "slug": "turkmenistan",
+  "film_slug": "the-daughter-in-law-f74630997f93ef780",
+  "text": "Turkmenistan | | The Daughter-in-Law | | 1972"
+ },
+ {
+  "slug": "united-arab-emirates",
+  "film_slug": "rattle-the-cage-f0ba580a4535ff127",
+  "text": "United Arab Emirates | | Rattle the Cage | | 2015"
+ },
+ {
+  "slug": "uzbekistan",
+  "film_slug": "white-white-storks-f523f5954b853bc7f",
+  "text": "Uzbekistan | | White, White Storks | | 1967"
+ },
+ {
+  "slug": "vietnam",
+  "film_slug": "the-scent-of-green-papaya-f5e0b818159657b40",
+  "text": "Vietnam | | The Scent of Green Papaya | | 1993 · 104 min"
+ },
+ {
+  "slug": "west-bank",
+  "film_slug": "lemon-tree-fc463318097779a8f",
+  "text": "West Bank | | Lemon Tree | | 2008 · outside view"
+ },
+ {
+  "slug": "yemen",
+  "film_slug": "i-m-nojoum-age-10-and-divorced-f9b86d068ccb9a509",
+  "text": "Yemen | | I&#39;m Nojoum, Age 10 and Divorced | | 2014"
+ },
+ {
+  "slug": "albania",
+  "film_slug": "amsterdam-express-fa11c15a47884601f",
+  "text": "Albania | | Amsterdam Express | | 2014 · 107 min"
+ },
+ {
+  "slug": "austria",
+  "film_slug": "the-white-ribbon-f62f2f6accd76921e",
+  "text": "Austria | | The White Ribbon | | 2009"
+ },
+ {
+  "slug": "belarus",
+  "film_slug": "come-and-see-f03649d98fbdadaed",
+  "text": "Belarus | | Come and See | | 1985 · 142 min"
+ },
+ {
+  "slug": "belgium",
+  "film_slug": "close-f7acc13f9f67d994e",
+  "text": "Belgium | | Close | | 2022"
+ },
+ {
+  "slug": "bosnia-and-herzegovina",
+  "film_slug": "no-man-s-land-f801890ec2e4b343d",
+  "text": "Bosnia and Herzegovina | | No Man&#39;s Land | | 2001"
+ },
+ {
+  "slug": "bulgaria",
+  "film_slug": "canary-season-fbdfa0168e02ebb5b",
+  "text": "Bulgaria | | Canary Season | | 1993 · 128 min"
+ },
+ {
+  "slug": "croatia",
+  "film_slug": "the-high-sun-fd922e3950f748766",
+  "text": "Croatia | | The High Sun | | 2015 · 123 min"
+ },
+ {
+  "slug": "czech-republic",
+  "film_slug": "kolya-f0c512520a9d67a1f",
+  "text": "Czech Republic | | Kolya | | 1996"
+ },
+ {
+  "slug": "denmark",
+  "film_slug": "ordet-f03c2d3b686730326",
+  "text": "Denmark | | Ordet | | 1955"
+ },
+ {
+  "slug": "estonia",
+  "film_slug": "spring-f88836741f60d2ad3",
+  "text": "Estonia | | Spring | | 1970 · 84 min"
+ },
+ {
+  "slug": "finland",
+  "film_slug": "sisu-fa7833a298cfe17ab",
+  "text": "Finland | | Sisu | | 2022"
+ },
+ {
+  "slug": "france",
+  "film_slug": "the-rules-of-the-game-f0c393520a9c2036e",
+  "text": "France | | The Rules of the Game | | 1939 · 110 min"
+ },
+ {
+  "slug": "germany",
+  "film_slug": "m-f7c60c820e927904b",
+  "text": "Germany | | M | | 1931 · 110 min"
+ },
+ {
+  "slug": "greece",
+  "film_slug": "the-travelling-players-f033aff20a4923a03",
+  "text": "Greece | | The Travelling Players | | 1975"
+ },
+ {
+  "slug": "hungary",
+  "film_slug": "on-body-and-soul-f932bf480c562abd5",
+  "text": "Hungary | | On Body and Soul | | 2017"
+ },
+ {
+  "slug": "iceland",
+  "film_slug": "woman-at-war-f44ad82b3da1843b3",
+  "text": "Iceland | | Woman at War | | 2018"
+ },
+ {
+  "slug": "ireland",
+  "film_slug": "room-f2755ad174475a5c0",
+  "text": "Ireland | | Room | | 2015"
+ },
+ {
+  "slug": "italy",
+  "film_slug": "cinema-paradiso-fb44a643ffa961d95",
+  "text": "Italy | | Cinema Paradiso | | 1988 · 124 min"
+ },
+ {
+  "slug": "kosovo",
+  "film_slug": "hive-fa693fb5e56e6c4fa",
+  "text": "Kosovo | | Hive | | 2021"
+ },
+ {
+  "slug": "latvia",
+  "film_slug": "flow-f927bc465d947b443",
+  "text": "Latvia | | Flow | | 2024 · 85 min"
+ },
+ {
+  "slug": "liechtenstein",
+  "film_slug": "children-of-the-mountains-f88071c06690dc900",
+  "text": "Liechtenstein | | Children of the Mountains | | 1958"
+ },
+ {
+  "slug": "lithuania",
+  "film_slug": "feelings-f44426e847c7bc226",
+  "text": "Lithuania | | Feelings | | 1968 · 85 min"
+ },
+ {
+  "slug": "luxembourg",
+  "film_slug": "baby-a-lone-f0e976aa6d7ac0ecd",
+  "text": "Luxembourg | | Baby(a)lone | | 2015"
+ },
+ {
+  "slug": "malta",
+  "film_slug": "luzzu-fa693f85e56e6bfe1",
+  "text": "Malta | | Luzzu | | 2021"
+ },
+ {
+  "slug": "moldova",
+  "film_slug": "fiddlers-f16826e7e91265273",
+  "text": "Moldova | | Fiddlers | | 1973 · 140 min"
+ },
+ {
+  "slug": "monaco",
+  "film_slug": "to-catch-a-thief-f2ec0cc20bd48701c",
+  "text": "Monaco | | To Catch a Thief | | 1955 · outside view"
+ },
+ {
+  "slug": "montenegro",
+  "film_slug": "the-tower-of-strength-f1fa396c80e78c442",
+  "text": "Montenegro | | The Tower of Strength | | 2024 · 97 min"
+ },
+ {
+  "slug": "netherlands",
+  "film_slug": "turkish-delight-fd2f799bc34776e25",
+  "text": "Netherlands | | Turkish Delight | | 1973"
+ },
+ {
+  "slug": "north-macedonia",
+  "film_slug": "before-the-rain-f80963c816cee5af1",
+  "text": "North Macedonia | | Before the Rain | | 1994"
+ },
+ {
+  "slug": "norway",
+  "film_slug": "sentimental-value-f89442fb6d9989825",
+  "text": "Norway | | Sentimental Value | | 2025"
+ },
+ {
+  "slug": "poland",
+  "film_slug": "loving-vincent-f23d2e0f19112273b",
+  "text": "Poland | | Loving Vincent | | 2017"
+ },
+ {
+  "slug": "portugal",
+  "film_slug": "a-cancao-de-lisboa-f6af46cbf4d7e34dd",
+  "text": "Portugal | | A Canção de Lisboa | | 1933"
+ },
+ {
+  "slug": "romania",
+  "film_slug": "reconstruction-f13659fbedbd4b7c5",
+  "text": "Romania | | Reconstruction | | 1968 · 100 min"
+ },
+ {
+  "slug": "russia",
+  "film_slug": "andrei-rublev-f7c4cc920e916e8f4",
+  "text": "Russia | | Andrei Rublev | | 1966 · 183 min"
+ },
+ {
+  "slug": "serbia",
+  "film_slug": "black-cat-white-cat-f546718b312b05dc7",
+  "text": "Serbia | | Black Cat, White Cat | | 1998 · 127 min"
+ },
+ {
+  "slug": "slovakia",
+  "film_slug": "the-garden-f79440a81692a0e24",
+  "text": "Slovakia | | The Garden | | 1995 · 99 min"
+ },
+ {
+  "slug": "slovenia",
+  "film_slug": "houston-we-have-a-problem-f7dae17220292ff51",
+  "text": "Slovenia | | Houston, We Have a Problem! | | 2016 · 88 min"
+ },
+ {
+  "slug": "spain",
+  "film_slug": "klaus-f31c51fddcc064425",
+  "text": "Spain | | Klaus | | 2019 · 97 min"
+ },
+ {
+  "slug": "sweden",
+  "film_slug": "the-seventh-seal-f156ae220af1df0a7",
+  "text": "Sweden | | The Seventh Seal | | 1957"
+ },
+ {
+  "slug": "switzerland",
+  "film_slug": "bread-and-tulips-f1cb97b20b2df03a2",
+  "text": "Switzerland | | Bread and Tulips | | 2000"
+ },
+ {
+  "slug": "united-kingdom",
+  "film_slug": "2001-a-space-odyssey-f65494fa8f9e79416",
+  "text": "UK | | 2001: A Space Odyssey | | 1968 · 149 min"
+ },
+ {
+  "slug": "ukraine",
+  "film_slug": "shadows-of-forgotten-ancestors-f9d3b15a1df34ff91",
+  "text": "Ukraine | | Shadows of Forgotten Ancestors | | 1965"
+ },
+ {
+  "slug": "vatican-city",
+  "film_slug": "the-two-popes-f2dbf6092dc89b6f5",
+  "text": "Vatican City | | The Two Popes | | 2019 · outside view"
+ },
+ {
+  "slug": "antigua-and-barbuda",
+  "film_slug": "the-sweetest-mango-f5ae8570bb75628ed",
+  "text": "Antigua and Barbuda | | The Sweetest Mango | | 2001"
+ },
+ {
+  "slug": "barbados",
+  "film_slug": "a-caribbean-dream-fa5c28b5beea3790a",
+  "text": "Barbados | | A Caribbean Dream | | 2017"
+ },
+ {
+  "slug": "bermuda",
+  "film_slug": "bermuda-grace-f0a232c6d3c207bd9",
+  "text": "Bermuda | | Bermuda Grace | | 1994 · outside view"
+ },
+ {
+  "slug": "canada",
+  "film_slug": "cube-f1548e520af010f5a",
+  "text": "Canada | | Cube | | 1997 · 90 min"
+ },
+ {
+  "slug": "costa-rica",
+  "film_slug": "maikol-yordan-de-viaje-perdido-f5493d4328e1f4559",
+  "text": "Costa Rica | | Maikol Yordan de Viaje Perdido | | 2014"
+ },
+ {
+  "slug": "cuba",
+  "film_slug": "memories-of-underdevelopment-f13ae9f4ad1d8d45b",
+  "text": "Cuba | | Memories of Underdevelopment | | 1968"
+ },
+ {
+  "slug": "dominican-republic",
+  "film_slug": "at-the-end-of-the-duty-f293c056c3fd29b2e",
+  "text": "Dominican Republic | | At the End of the Duty | | 2008"
+ },
+ {
+  "slug": "el-salvador",
+  "film_slug": "fly-so-far-f24b262512e53155e",
+  "text": "El Salvador | | Fly So Far | | 2021"
+ },
+ {
+  "slug": "greenland",
+  "film_slug": "sume-the-sound-of-a-revolution-f75ba9b2c35b2d36d",
+  "text": "Greenland | | Sumé: The Sound of a Revolution | | 2014"
+ },
+ {
+  "slug": "grenada",
+  "film_slug": "blinded-f99e1c495c64f795e",
+  "text": "Grenada | | Blinded | | 2006"
+ },
+ {
+  "slug": "guatemala",
+  "film_slug": "ixcanul-f4d6f92b08b1ff514",
+  "text": "Guatemala | | Ixcanul | | 2015"
+ },
+ {
+  "slug": "haiti",
+  "film_slug": "haitian-corner-f93e81392f65f8fca",
+  "text": "Haiti | | Haitian Corner | | 1987"
+ },
+ {
+  "slug": "honduras",
+  "film_slug": "morazan-f7ba57143bf641162",
+  "text": "Honduras | | Morazán | | 2017"
+ },
+ {
+  "slug": "jamaica",
+  "film_slug": "the-harder-they-come-f990270807ee09517",
+  "text": "Jamaica | | The Harder They Come | | 1972"
+ },
+ {
+  "slug": "mexico",
+  "film_slug": "roma-fff2e1c6cd5f27e76",
+  "text": "Mexico | | Roma | | 2018 · 135 min"
+ },
+ {
+  "slug": "nicaragua",
+  "film_slug": "days-of-light-fbf48ab6f946781c8",
+  "text": "Nicaragua | | Days of Light | | 2019"
+ },
+ {
+  "slug": "panama",
+  "film_slug": "invasion-f4f5559430c557dc5",
+  "text": "Panama | | Invasion | | 2014"
+ },
+ {
+  "slug": "puerto-rico",
+  "film_slug": "lo-que-le-paso-a-santiago-f627503a9d3b4c360",
+  "text": "Puerto Rico | | Lo que le pasó a Santiago | | 1989"
+ },
+ {
+  "slug": "the-bahamas",
+  "film_slug": "rain-f8235859d7939406b",
+  "text": "The Bahamas | | Rain | | 2008"
+ },
+ {
+  "slug": "trinidad-and-tobago",
+  "film_slug": "god-loves-the-fighter-f665c27028fc8a3c0",
+  "text": "Trinidad and Tobago | | God Loves the Fighter | | 2014"
+ },
+ {
+  "slug": "united-states-of-america",
+  "film_slug": "the-godfather-f25cfac20b823566f",
+  "text": "United States | | The Godfather | | 1972 · 175 min"
+ },
+ {
+  "slug": "argentina",
+  "film_slug": "the-secret-in-their-eyes-ffa707598f6b37dd1",
+  "text": "Argentina | | The Secret in Their Eyes | | 2009"
+ },
+ {
+  "slug": "bolivia",
+  "film_slug": "el-cementerio-de-los-elefantes-fd85926f47dd812b8",
+  "text": "Bolivia | | El Cementerio de los Elefantes | | 2009"
+ },
+ {
+  "slug": "brazil",
+  "film_slug": "city-of-god-f1c90f920b2bcd4a8",
+  "text": "Brazil | | City of God | | 2002 · 129 min"
+ },
+ {
+  "slug": "chile",
+  "film_slug": "machuca-f57fd5457b8f13c09",
+  "text": "Chile | | Machuca | | 2004"
+ },
+ {
+  "slug": "colombia",
+  "film_slug": "the-hidden-face-f906ac95b8e86bd21",
+  "text": "Colombia | | The Hidden Face | | 2011"
+ },
+ {
+  "slug": "ecuador",
+  "film_slug": "dedicada-a-mi-ex-f6d7d394083d4ff30",
+  "text": "Ecuador | | Dedicada a mi ex | | 2019"
+ },
+ {
+  "slug": "falkland-islands",
+  "film_slug": "blessed-by-fire-fe4a68f0826c00a68",
+  "text": "Falkland Islands | | Blessed by Fire | | 2005 · outside view"
+ },
+ {
+  "slug": "french-guiana",
+  "film_slug": "papillon-f4717628fb6cbae26",
+  "text": "French Guiana | | Papillon | | 1973 · outside view"
+ },
+ {
+  "slug": "guyana",
+  "film_slug": "jonestown-the-life-and-death-of-peoples-temple-f6740d0b5edd519d2",
+  "text": "Guyana | | Jonestown: The Life and Death of Peoples Temple | | 2006 · outside view"
+ },
+ {
+  "slug": "paraguay",
+  "film_slug": "la-redencion-f442d739066708d92",
+  "text": "Paraguay | | La Redención | | 2018"
+ },
+ {
+  "slug": "peru",
+  "film_slug": "ainbo-spirit-of-the-amazon-f442cb7eea2edbc9d",
+  "text": "Peru | | Ainbo: Spirit of the Amazon | | 2021"
+ },
+ {
+  "slug": "suriname",
+  "film_slug": "let-each-one-go-where-he-may-f3af4d76c49f90e8a",
+  "text": "Suriname | | Let Each One Go Where He May | | 2009 · outside view"
+ },
+ {
+  "slug": "uruguay",
+  "film_slug": "a-twelve-year-night-f050de80deafadfeb",
+  "text": "Uruguay | | A Twelve-Year Night | | 2018"
+ },
+ {
+  "slug": "venezuela",
+  "film_slug": "the-liberator-faf5d5cf5dc0177df",
+  "text": "Venezuela | | The Liberator | | 2013"
+ },
+ {
+  "slug": "australia",
+  "film_slug": "picnic-at-hanging-rock-fa3d48e3ff1823036",
+  "text": "Australia | | Picnic at Hanging Rock | | 1975 · 107 min"
+ },
+ {
+  "slug": "fiji",
+  "film_slug": "the-land-has-eyes-fd23656786d5f9c40",
+  "text": "Fiji | | The Land Has Eyes | | 2004"
+ },
+ {
+  "slug": "kiribati",
+  "film_slug": "anote-s-ark-f5fcf15ff4b1b365d",
+  "text": "Kiribati | | Anote&#39;s Ark | | 2018 · outside view"
+ },
+ {
+  "slug": "marshall-islands",
+  "film_slug": "the-sound-of-crickets-at-night-f4460f9847c95abe6",
+  "text": "Marshall Islands | | The Sound of Crickets at Night | | 2012"
+ },
+ {
+  "slug": "micronesia",
+  "film_slug": "island-soldier-f01045d79bab2cb68",
+  "text": "Micronesia | | Island Soldier | | 2017 · outside view"
+ },
+ {
+  "slug": "new-caledonia",
+  "film_slug": "rebellion-f037c574f1f606c08",
+  "text": "New Caledonia | | Rebellion | | 2011 · outside view"
+ },
+ {
+  "slug": "new-zealand",
+  "film_slug": "king-kong-f25bb3420b811e17d",
+  "text": "New Zealand | | King Kong | | 2005"
+ },
+ {
+  "slug": "papua-new-guinea",
+  "film_slug": "harry-s-war-f29878d5d9caf04e8",
+  "text": "Papua New Guinea | | Harry&#39;s War | | 1999 · outside view"
+ },
+ {
+  "slug": "samoa",
+  "film_slug": "the-orator-f9c4e654658588bed",
+  "text": "Samoa | | The Orator | | 2011"
+ },
+ {
+  "slug": "solomon-islands",
+  "film_slug": "the-thin-red-line-fa3e9a9ec42e97648",
+  "text": "Solomon Islands | | The Thin Red Line | | 1998 · outside view"
+ },
+ {
+  "slug": "tonga",
+  "film_slug": "the-other-side-of-heaven-f21b21b371aef979b",
+  "text": "Tonga | | The Other Side of Heaven | | 2001 · outside view"
+ },
+ {
+  "slug": "tuvalu",
+  "film_slug": "time-and-tide-f817e250857f52497",
+  "text": "Tuvalu | | Time &amp; Tide | | 2005 · outside view"
+ },
+ {
+  "slug": "vanuatu",
+  "film_slug": "till-there-was-you-f3a17815a48a134ce",
+  "text": "Vanuatu | | Till There Was You | | 1990 · outside view"
+ },
+ {
+  "slug": "antarctica",
+  "film_slug": "the-thing-f546088b312aafd69",
+  "text": "Antarctica | | The Thing | | 1982 · outside view"
+ }
+]
